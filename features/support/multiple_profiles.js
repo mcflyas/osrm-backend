@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { After } from '@cucumber/cucumber';
 import { mkBinPath } from './run.js';
 
@@ -35,6 +35,37 @@ export class DeploymentFixture {
   prepare() {
     this.writeConfig();
     return this.run('osrm-prepare', ['--config', this.configPath]);
+  }
+
+  async start(args = ['--config', this.configPath]) {
+    const child = spawn(mkBinPath('osrm-routed'), args, { stdio: ['ignore', 'pipe', 'pipe'] });
+    this.processes.push(child);
+    child.logs = '';
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error(`Server not ready: ${child.logs}`)), 15000);
+      const consume = data => {
+        child.logs += data.toString();
+        const listening = child.logs.match(/Listening on: .*:(\d+)/);
+        if (listening) child.port = Number(listening[1]);
+        if (child.port && child.logs.includes('running and waiting for requests')) {
+          clearTimeout(timer);
+          resolve();
+        }
+      };
+      child.stdout.on('data', consume);
+      child.stderr.on('data', consume);
+      child.once('error', error => { clearTimeout(timer); reject(error); });
+      child.once('exit', () => { clearTimeout(timer); reject(new Error(child.logs)); });
+    });
+    return child;
+  }
+
+  async request(child, route, body) {
+    const response = await fetch(`http://127.0.0.1:${child.port}${route}`, body === undefined ? {} : {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    const bytes = Buffer.from(await response.arrayBuffer());
+    return { status: response.status, bytes };
   }
 
   async close() {
