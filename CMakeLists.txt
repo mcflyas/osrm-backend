@@ -308,6 +308,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
   add_dependency_defines(-DXML_STATIC)
   find_library(ws2_32_LIBRARY_PATH ws2_32)
   target_link_libraries(osrm-extract wsock32 ws2_32)
+  target_link_libraries(osrm-prepare wsock32 ws2_32)
 endif()
 
 if(UNIX AND NOT APPLE)

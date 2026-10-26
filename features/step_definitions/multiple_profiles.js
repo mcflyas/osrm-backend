@@ -13,6 +13,18 @@ Given('the deployment uses its own shared-memory namespace', function () {
   Object.assign(this.deployment.config.server, { storage: 'shared_memory', dataset_namespace: this.deployment.namespace });
 });
 
+Given('the deployment uses {string} with {string} car and {string} foot', function (storage, car, foot) {
+  const fixture = this.deployment;
+  fixture.config.server.storage = storage;
+  fixture.config.server.threads = 3;
+  fixture.config.profiles[0].algorithm = car;
+  fixture.config.profiles[1].algorithm = foot;
+  if (storage === 'shared_memory') {
+    fixture.sharedMemory = true;
+    fixture.config.server.dataset_namespace = fixture.namespace;
+  }
+});
+
 Given('an isolated legacy datastore namespace', function () {
   this.deployment = new DeploymentFixture();
   this.deployment.sharedMemory = true;
@@ -97,6 +109,7 @@ Then('filesystem aliases should be rejected before extraction', { timeout: 12000
 Then('every deployment service should match its standalone engine', { timeout: 120000 }, async function () {
   assert.equal(this.preparation.status, 0, this.preparation.stderr);
   const fixture = this.deployment;
+  if (fixture.sharedMemory) publish(fixture);
   const combined = await fixture.start();
   const coordinates = '7,43;7.006,43;7.012,43';
   const expectedRoutes = [];
@@ -119,10 +132,20 @@ Then('every deployment service should match its standalone engine', { timeout: 1
     }
   }
   assert.notDeepEqual(expectedRoutes[0], expectedRoutes[1]);
+  const carAccess = await fixture.request(combined, '/route/v1/car/7,43;7.03,43.03?steps=true');
+  const footAccess = await fixture.request(combined, '/route/v1/foot/7,43;7.03,43.03?steps=true');
+  assert.equal(carAccess.status, 200);
+  assert.equal(footAccess.status, 200);
+  assert.doesNotMatch(carAccess.bytes.toString(), /Foot shortcut/);
+  assert.match(footAccess.bytes.toString(), /Foot shortcut/);
   for (let i = 0; i < 12; i++) {
     const selected = i % 2;
     assert.deepEqual(await fixture.request(combined, `/route/v1/${fixture.config.profiles[selected].name}/${coordinates}`), expectedRoutes[selected]);
   }
+  await Promise.all(Array.from({ length: 24 }, async (_, i) => {
+    const selected = i % 2;
+    assert.deepEqual(await fixture.request(combined, `/route/v1/${fixture.config.profiles[selected].name}/${coordinates}`), expectedRoutes[selected]);
+  }));
   const missing = await fixture.request(combined, `/route/v1/missing/${coordinates}`);
   assert.equal(missing.status, 400);
   assert.equal(JSON.parse(missing.bytes).code, 'InvalidProfile');

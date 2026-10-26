@@ -11,9 +11,12 @@ export class DeploymentFixture {
     this.directory = fs.mkdtempSync(path.join(os.tmpdir(), 'osrm profiles ø '));
     this.configPath = path.join(this.directory, 'deployment.json');
     this.output = path.join(this.directory, 'release folder');
+    const input = path.join(this.directory, 'map input.osm');
+    fs.writeFileSync(input, fs.readFileSync(path.resolve('test/data/multiple_profiles.osm'), 'utf8').replace('</osm>',
+      '<way id="20000"><nd ref="1"/><nd ref="256"/><tag k="highway" v="footway"/><tag k="name" v="Foot shortcut"/></way></osm>'));
     this.config = {
       version: 1,
-      input: path.resolve('test/data/multiple_profiles.osm'),
+      input,
       output_directory: 'release folder',
       preparation: { threads: 2 },
       server: { threads: 1, ip: '127.0.0.1', port: 0 },

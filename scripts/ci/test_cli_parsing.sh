@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Integration tests for CLI argument parsing across all six OSRM tool binaries.
+# Integration tests for CLI argument parsing across OSRM tool binaries.
 # Strategy: negative observation. We rarely run anything that succeeds —
 # instead we send each tool a known-bad input AFTER parsing and check that the
 # tool's response proves a specific parse path was taken. A tool that gets to
@@ -36,8 +36,9 @@ CUSTOMIZE="$BINARIES_FOLDER/osrm-customize"
 PARTITION="$BINARIES_FOLDER/osrm-partition"
 ROUTED="$BINARIES_FOLDER/osrm-routed"
 DATASTORE="$BINARIES_FOLDER/osrm-datastore"
+PREPARE="$BINARIES_FOLDER/osrm-prepare"
 
-for bin in "$EXTRACT" "$CONTRACT" "$CUSTOMIZE" "$PARTITION" "$ROUTED" "$DATASTORE"; do
+for bin in "$EXTRACT" "$CONTRACT" "$CUSTOMIZE" "$PARTITION" "$ROUTED" "$DATASTORE" "$PREPARE"; do
     if [ ! -x "$bin" ]; then
         echo "Binary missing or not executable: $bin" >&2
         exit 1
@@ -115,7 +116,12 @@ assert_output_not_matches() {
 
 NONEXISTENT=/nonexistent.osrm
 
-# --- help / version, all six tools -----------------------------------------
+# --- help / version -------------------------------------------------------
+
+assert_exit_zero "prepare/--help" "$PREPARE" --help
+assert_exit_zero "prepare/--version" "$PREPARE" --version
+assert_exit_nonzero "prepare/config-required" "$PREPARE"
+assert_exit_nonzero "prepare/missing-config" "$PREPARE" --config "$NONEXISTENT"
 
 assert_exit_zero "extract/--help"      "$EXTRACT"   --help
 assert_exit_zero "extract/--version"   "$EXTRACT"   --version

@@ -433,7 +433,9 @@ try
 
     util::Log() << "starting up engines, " << OSRM_VERSION;
 
-    if (config.use_shared_memory)
+    if (deployment_config
+            ? deployment_config->Server.Storage == deployment::StorageMode::SharedMemory
+            : config.use_shared_memory)
     {
         util::Log() << "Loading from shared memory";
     }

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "input": "../../test/data/monaco.osm.pbf",
+  "output_directory": "../../test/data/multiple-profiles-example",
+  "preparation": { "threads": 2 },
+  "server": { "threads": 2, "storage": "mmap" },
+  "profiles": [
+    { "name": "car", "lua": "../../profiles/car.lua", "algorithm": "MLD" },
+    { "name": "foot", "lua": "../../profiles/foot.lua", "algorithm": "MLD" }
+  ]
+}

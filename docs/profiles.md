@@ -24,6 +24,29 @@ osrm-extract --profile profiles/foot.lua planet.osm.pbf --output /data/foot
 
 This avoids the need to create symbolic links to the input file.
 
+### Serving multiple profiles in one process
+
+One `osrm-routed` process can serve independently prepared profiles through a
+shared endpoint and worker pool. A versioned JSON configuration drives both
+preparation and serving:
+
+```sh
+osrm-prepare --config example/multiple-profiles/osrm.json
+osrm-routed --config example/multiple-profiles/osrm.json
+```
+
+The [car/foot example](../example/multiple-profiles/osrm.json) uses the repository's
+Monaco input and Lua profiles. Run it from a checkout with installed executables,
+or use `build/osrm-prepare` and `build/osrm-routed`. Query `/route/v1/car/...` or
+`/route/v1/foot/...` to select an engine. Each profile keeps its own access rules,
+costs, topology, and CH or MLD data. The OSM input is read once per profile.
+
+Change `output_directory` to a fresh release directory for the next build;
+preparation refuses to overwrite a nonempty directory. Adding or removing a
+profile requires restarting the server. A bus profile can be included by pointing
+an entry at your own Lua file; this does not add transit schedules or mixed-mode
+journeys. See [configuration and release workflows](routed.md#multiple-profiles).
+
 ## Processing flow
 It's important to understand that profiles are used when preprocessing the OSM data, NOT at query time when routes are computed.
 

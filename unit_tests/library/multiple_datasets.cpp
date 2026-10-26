@@ -89,6 +89,29 @@ BOOST_AUTO_TEST_CASE(alternating_equal_sized_metrics)
     }
 }
 
+BOOST_AUTO_TEST_CASE(memory_and_mmap_preserve_hints)
+{
+    for (const auto algorithm :
+         {osrm::EngineConfig::Algorithm::CH, osrm::EngineConfig::Algorithm::MLD})
+    {
+        osrm::EngineConfig config;
+        config.use_shared_memory = false;
+        config.algorithm = algorithm;
+        config.storage_config = {algorithm == osrm::EngineConfig::Algorithm::CH
+                                     ? OSRM_TEST_DATA_DIR "/ch/monaco.osrm"
+                                     : OSRM_TEST_DATA_DIR "/mld/monaco.osrm"};
+        config.use_mmap = true;
+        osrm::OSRM mapped(config);
+        config.use_mmap = false;
+        osrm::OSRM memory(config);
+        osrm::RouteParameters parameters;
+        parameters.coordinates = {
+            {osrm::util::FloatLongitude{7.415800}, osrm::util::FloatLatitude{43.734132}},
+            {osrm::util::FloatLongitude{7.421315}, osrm::util::FloatLatitude{43.738814}}};
+        BOOST_CHECK_EQUAL(runRoute(memory, parameters), runRoute(mapped, parameters));
+    }
+}
+
 BOOST_AUTO_TEST_CASE(alternating_exclusion_views)
 {
     auto engine = getOSRM(OSRM_TEST_DATA_DIR "/multiple_profiles/a/map.osrm",

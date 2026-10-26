@@ -124,6 +124,7 @@ RUN apt-get update && \
     ldconfig /usr/local/lib
 
 RUN /usr/local/bin/osrm-extract --help && \
+    /usr/local/bin/osrm-prepare --help && \
     /usr/local/bin/osrm-routed --help && \
     /usr/local/bin/osrm-contract --help && \
     /usr/local/bin/osrm-partition --help && \

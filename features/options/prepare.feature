@@ -1,4 +1,4 @@
-@isolated @no_datastore
+@isolated @with_mld @with_mmap
 Feature: Prepare a multi-profile deployment
     Scenario: Build CH and MLD profiles in a fresh release
         Given a deployment configuration with CH car and MLD foot

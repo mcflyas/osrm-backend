@@ -130,8 +130,7 @@ bool generateDataStoreOptions(const int argc,
          "Multi-profile deployment configuration")(
             "max-wait",
             boost::program_options::value<int>(&max_wait)->default_value(-1),
-            "Maximum number of seconds to wait on a running data update "
-            "before aquiring the lock by force.") //
+            "Maximum seconds to acquire the publication lock; fail on timeout (-1: unlimited).") //
         ("dataset-name",
          boost::program_options::value<std::string>(&dataset_name)->default_value(""),
          "Name of the dataset to load into memory. This allows having multiple datasets in memory "

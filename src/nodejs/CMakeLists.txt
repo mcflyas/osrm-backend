@@ -138,7 +138,7 @@ set(ARTIFACTS "")
 # Create the binding directory if it doesn't exist
 file(MAKE_DIRECTORY ${BINDING_DIR})
 
-set(OSRM_BINARIES osrm-extract osrm-contract osrm-routed osrm-datastore osrm-components osrm-partition osrm-customize)
+set(OSRM_BINARIES osrm-extract osrm-contract osrm-routed osrm-datastore osrm-components osrm-partition osrm-customize osrm-prepare)
 foreach(binary ${OSRM_BINARIES})
   add_custom_command(OUTPUT ${BINDING_DIR}/${binary}
                      COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${binary}> ${BINDING_DIR}

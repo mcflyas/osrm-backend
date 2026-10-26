@@ -46,4 +46,25 @@ BOOST_AUTO_TEST_CASE(rejects_invalid_descriptors)
     }
 }
 
+BOOST_AUTO_TEST_CASE(descriptor_requires_configuration_order)
+{
+    std::string error;
+    auto value = osrm::deployment::readConfig(config(), error);
+    BOOST_REQUIRE(value);
+    value->Profiles.push_back({"foot", {}, osrm::engine::EngineConfig::Algorithm::CH});
+    for (const auto &profile : value->Profiles)
+    {
+        for (const auto &extension : osrm::storage::GetRequiredFiles({}))
+            write("data folder/ø/" + profile.Name + "/map" + extension.string(), "");
+    }
+    for (const auto *extension :
+         {".osrm.partition", ".osrm.cells", ".osrm.cell_metrics", ".osrm.mldgr"})
+        write(std::string("data folder/ø/car/map") + extension, "");
+    write("data folder/ø/foot/map.osrm.hsgr", "");
+    BOOST_REQUIRE_MESSAGE(osrm::deployment::writeCompletionDescriptor(*value, error), error);
+    BOOST_REQUIRE_MESSAGE(osrm::deployment::validatePreparedData(*value, error), error);
+    std::swap(value->Profiles[0], value->Profiles[1]);
+    BOOST_CHECK(!osrm::deployment::validatePreparedData(*value, error));
+}
+
 BOOST_AUTO_TEST_SUITE_END()

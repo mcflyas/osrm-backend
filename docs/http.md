@@ -19,7 +19,7 @@ GET /{service}/{version}/{profile}/{coordinates}[.{format}]?option=value&option=
 | --- | --- |
 | `service` | One of the following values: [`route`](#route-service), [`nearest`](#nearest-service), [`table`](#table-service), [`match`](#match-service), [`trip`](#trip-service), [`tile`](#tile-service) |
 | `version` | Version of the protocol implemented by the service. `v1` for all OSRM 5.x installations |
-| `profile` | Mode of transportation, is determined statically by the Lua profile that is used to prepare the data using `osrm-extract`. Typically `car`, `bike` or `foot` if using one of the supplied profiles. |
+| `profile` | With `osrm-routed --config`, the case-sensitive configured profile name, such as `car` or `foot`. Each name selects an independently prepared engine. Legacy single-dataset servers use their one prepared Lua profile regardless of this label. See [multi-profile configuration](routed.md#multiple-profiles). |
 | `coordinates`| String of format `{longitude},{latitude};{longitude},{latitude}[;{longitude},{latitude} ...]` or `polyline({polyline}) or polyline6({polyline6})`. |
 | `format`| `json` or `flatbuffers`. This parameter is optional and defaults to `json`. |
 
@@ -150,6 +150,7 @@ Every response object has a `code` property containing one of the strings below 
 | `Ok`              | Request could be processed as expected.                                          |
 | `InvalidUrl`      | URL string is invalid.                                                           |
 | `InvalidService`  | Service name is invalid.                                                         |
+| `InvalidProfile`  | The name is absent from a configured multi-profile server (HTTP 400).             |
 | `InvalidVersion`  | Version is not found.                                                            |
 | `InvalidOptions`  | Options are invalid.                                                             |
 | `InvalidQuery`    | The query string is syntactically malformed.                                     |

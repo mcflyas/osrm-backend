@@ -1,4 +1,4 @@
-@isolated @no_datastore
+@isolated @with_mld @with_mmap
 Feature: Publish and refresh configured shared-memory datasets
     Background:
         Given a deployment configuration with CH car and MLD foot

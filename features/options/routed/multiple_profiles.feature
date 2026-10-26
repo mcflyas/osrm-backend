@@ -1,4 +1,4 @@
-@isolated @no_datastore
+@isolated @with_mld @with_mmap
 Feature: Serve multiple configured profiles
     Background:
         Given a deployment configuration with CH car and MLD foot
