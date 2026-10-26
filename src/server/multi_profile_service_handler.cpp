@@ -5,14 +5,17 @@
 
 #include <boost/assert.hpp>
 
+#include <algorithm>
+
 namespace osrm::server
 {
 MultiProfileServiceHandler::MultiProfileServiceHandler(
     std::unordered_map<std::string, std::unique_ptr<ServiceHandlerInterface>> handlers)
     : m_handlers(std::move(handlers))
 {
-    for (const auto &entry : m_handlers)
-        BOOST_ASSERT(entry.second);
+    BOOST_ASSERT(std::all_of(m_handlers.begin(),
+                             m_handlers.end(),
+                             [](const auto &entry) { return bool(entry.second); }));
 }
 
 ServiceHandlerInterface *MultiProfileServiceHandler::resolveProfile(const std::string &name,

@@ -13,6 +13,8 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <filesystem>
+#include <fstream>
 #include <future>
 #include <memory>
 #include <string>
@@ -253,6 +255,33 @@ BOOST_AUTO_TEST_CASE(publication_timeout_returns_failure_and_releases_reserved_k
         monitor.data().ReleaseKey(available);
         monitor.data().ReleaseKey(second_available);
     }
+}
+
+BOOST_AUTO_TEST_CASE(failed_publication_releases_unpublished_region)
+{
+    using Monitor = osrm::storage::SharedMonitor<osrm::storage::SharedRegionRegister>;
+    Monitor monitor(osrm::storage::SharedRegionRegister{});
+    const auto available = monitor.data().ReserveKey();
+    monitor.data().ReleaseKey(available);
+    const auto directory = std::filesystem::temp_directory_path() / Namespace;
+    std::filesystem::copy(OSRM_TEST_DATA_DIR "/multiple_profiles/a",
+                          directory,
+                          std::filesystem::copy_options::recursive);
+    std::ofstream(directory / "map.osrm.mldgr", std::ios::trunc) << "invalid graph";
+    const osrm::storage::StorageConfig config{directory / "map.osrm"};
+    BOOST_CHECK_THROW(osrm::storage::Storage(config, true).Run(-1, Namespace + "/failed", false),
+                      std::exception);
+    BOOST_CHECK(!osrm::storage::RegionExists(available));
+    const auto next = monitor.data().ReserveKey();
+    BOOST_CHECK_EQUAL(next, available);
+    monitor.data().ReleaseKey(next);
+    if (next != available)
+    {
+        if (osrm::storage::RegionExists(available))
+            osrm::storage::Remove(available);
+        monitor.data().ReleaseKey(available);
+    }
+    std::filesystem::remove_all(directory);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
