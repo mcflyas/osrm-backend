@@ -199,6 +199,8 @@ add_library(osrm_partition src/osrm/partitioner.cpp $<TARGET_OBJECTS:PARTITIONER
 add_library(osrm_customize src/osrm/customizer.cpp $<TARGET_OBJECTS:CUSTOMIZER> $<TARGET_OBJECTS:UTIL>)
 add_library(osrm_update $<TARGET_OBJECTS:UPDATER> $<TARGET_OBJECTS:UTIL>)
 add_library(osrm_store $<TARGET_OBJECTS:STORAGE> $<TARGET_OBJECTS:UTIL>)
+add_library(osrm_deployment STATIC src/deployment/config.cpp src/deployment/descriptor.cpp)
+target_link_libraries(osrm_deployment PUBLIC osrm_store)
 
 # ALIAS targets with :: provide compile-time safety: typos error at configure time, not link time
 add_library(osrm::osrm ALIAS osrm)

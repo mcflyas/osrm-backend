@@ -27,6 +27,8 @@ file(GLOB StorageTestsSources
     storage_tests.cpp
     storage/*.cpp)
 
+file(GLOB DeploymentTestsSources deployment_tests.cpp deployment/*.cpp)
+
 file(GLOB LibraryTestsSources
     library_tests.cpp
     library/*.cpp)
@@ -87,6 +89,8 @@ add_executable(updater-tests EXCLUDE_FROM_ALL
 add_executable(storage-tests EXCLUDE_FROM_ALL
     ${StorageTestsSources}
     $<TARGET_OBJECTS:STORAGE> $<TARGET_OBJECTS:UTIL>)
+
+add_executable(deployment-tests EXCLUDE_FROM_ALL ${DeploymentTestsSources})
 
 add_executable(library-tests EXCLUDE_FROM_ALL
 	${LibraryTestsSources})
@@ -171,11 +175,13 @@ target_link_libraries(server-tests osrm ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 target_link_libraries(util-tests ${UTIL_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} LibArchive::LibArchive)
 target_link_libraries(contractor-tests osrm_contract ${CONTRACTOR_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} LibArchive::LibArchive)
 target_link_libraries(storage-tests osrm_store ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} LibArchive::LibArchive)
+target_link_libraries(deployment-tests osrm_deployment ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 # Register unit test executables with CTest.
 # Each test uses a fixture so that ctest automatically builds the executable
 # (and test data where needed) before running it.
 set(TEST_TARGETS
+    deployment-tests
     engine-tests
     contractor-tests
     extractor-tests
