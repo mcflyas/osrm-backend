@@ -2,6 +2,7 @@
 
 #include "fixture.hpp"
 #include "storage/shared_datatype.hpp"
+#include "util/program_options_path.hpp"
 
 #include <boost/test/unit_test.hpp>
 
@@ -25,6 +26,33 @@ BOOST_AUTO_TEST_CASE(relative_paths_and_serving_defaults)
     BOOST_CHECK(!osrm::deployment::validateConfig(
         *result, osrm::deployment::ConfigPurpose::Prepare, error));
     BOOST_CHECK(!std::filesystem::exists(result->OutputDirectory));
+}
+
+BOOST_AUTO_TEST_CASE(cli_paths_preserve_spaces)
+{
+    boost::program_options::options_description options;
+    std::filesystem::path value;
+    options.add_options()(
+        "path", boost::program_options::value<std::filesystem::path>(&value), "path");
+    boost::program_options::variables_map variables;
+    boost::program_options::store(boost::program_options::command_line_parser(
+                                      std::vector<std::string>{"--path", "a folder/ø/map.osrm"})
+                                      .options(options)
+                                      .run(),
+                                  variables);
+    boost::program_options::notify(variables);
+    BOOST_CHECK(value == "a folder/ø/map.osrm");
+}
+
+BOOST_AUTO_TEST_CASE(dataset_paths_preserve_extensions_in_parent_directories)
+{
+    std::string error;
+    auto value = osrm::deployment::readConfig(config(), error);
+    BOOST_REQUIRE(value);
+    value->OutputDirectory = Directory / "region.osm/release";
+    const auto engine = osrm::deployment::makeEngineConfig(*value, value->Profiles.front());
+    BOOST_CHECK(engine.storage_config.GetPath(".osrm.properties") ==
+                value->OutputDirectory / "car/map.osrm.properties");
 }
 
 BOOST_AUTO_TEST_CASE(preparation_requires_existing_inputs)
