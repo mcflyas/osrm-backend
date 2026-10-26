@@ -86,6 +86,11 @@ template <> struct SearchEngineData<routing_algorithms::ch::Algorithm>
     void InitializeOrClearThirdThreadLocalStorage(unsigned number_of_nodes);
 
     void InitializeOrClearManyToManyThreadLocalStorage(unsigned number_of_nodes);
+
+    void selectDataset(const std::shared_ptr<const void> &dataset);
+
+  private:
+    static thread_local std::weak_ptr<const void> m_dataset_owner;
 };
 
 struct MultiLayerDijkstraHeapData
@@ -221,6 +226,11 @@ template <> struct SearchEngineData<routing_algorithms::mld::Algorithm>
                                                        unsigned number_of_boundary_nodes);
 
     void InitializeUnpackingCache(unsigned number_of_nodes, unsigned number_of_edges);
+
+    void selectDataset(const std::shared_ptr<const void> &dataset);
+
+  private:
+    static thread_local std::weak_ptr<const void> m_dataset_owner;
 };
 } // namespace osrm::engine
 

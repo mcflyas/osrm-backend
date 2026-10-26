@@ -49,6 +49,7 @@ Thumbs.db
 /test/data/monaco.osrm*
 /test/data/ch
 /test/data/mld
+/test/data/multiple_profiles/
 /cmake/postinst
 .gradle/
 CMakeUserPresets.json 
