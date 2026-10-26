@@ -16,7 +16,7 @@ Feature: osrm-datastore command line options
         And the data has been contracted
 
         When I try to run "osrm-datastore"
-        Then stderr should contain "the argument for"
+        Then stdout should contain "osrm-datastore"
         And it should exit successfully
 
     Scenario: osrm-datastore - Updates should work
@@ -30,13 +30,12 @@ Feature: osrm-datastore command line options
         And the data has been extracted
         And the data has been contracted
 
-        When I run "osrm-datastore --spring-clean" with input "Y"
-        And I try to run "osrm-datastore --dataset-name cucumber/updates_test {processed_file}"
+        Given an isolated legacy datastore namespace
+        When I try to run "osrm-datastore --dataset-name {test_dataset} {processed_file}"
         Then it should exit successfully
         When I try to run "osrm-datastore --list"
         Then it should exit successfully
-        And stdout should contain "cucumber/updates_test/static"
-        And stdout should contain "cucumber/updates_test/updatable"
+        And stdout should contain the isolated dataset regions
 
     Scenario: osrm-datastore - Only metric update should work
         Given the node map
@@ -50,8 +49,8 @@ Feature: osrm-datastore command line options
         And the data has been partitioned
         And the data has been customized
 
-        When I run "osrm-datastore --spring-clean" with input "Y"
-        And I try to run "osrm-datastore {processed_file} --dataset-name cucumber/only_metric_test"
+        Given an isolated legacy datastore namespace
+        When I try to run "osrm-datastore {processed_file} --dataset-name {test_dataset}"
         Then it should exit successfully
 
         Given the speed file
@@ -60,7 +59,7 @@ Feature: osrm-datastore command line options
         """
         When I try to run "osrm-customize --segment-speed-file {speeds_file} {processed_file}"
         Then it should exit successfully
-        When I try to run "osrm-datastore {processed_file} --dataset-name cucumber/only_metric_test --only-metric"
+        When I try to run "osrm-datastore {processed_file} --dataset-name {test_dataset} --only-metric"
         Then it should exit successfully
 
     Scenario: osrm-datastore - Errors on invalid path

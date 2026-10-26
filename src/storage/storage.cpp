@@ -103,6 +103,7 @@ bool swapData(Monitor &monitor,
                     for (auto &pair : handles)
                     {
                         Remove(pair.second.proj_id);
+                        shared_register.ReleaseKey(pair.second.proj_id);
                     }
                     return false;
                 }
@@ -185,7 +186,10 @@ void populateLayoutFromFile(const std::filesystem::path &path, storage::BaseData
     }
 }
 
-Storage::Storage(StorageConfig config_) : config(std::move(config_)) {}
+Storage::Storage(StorageConfig config_, bool embed_leaf_indexes)
+    : config(std::move(config_)), m_embed_leaf_indexes(embed_leaf_indexes)
+{
+}
 
 int Storage::Run(int max_wait, const std::string &dataset_name, bool only_metric)
 {
@@ -283,9 +287,7 @@ int Storage::Run(int max_wait, const std::string &dataset_name, bool only_metric
     }
     PopulateUpdatableData(index);
 
-    swapData(monitor, shared_register, handles, max_wait);
-
-    return EXIT_SUCCESS;
+    return swapData(monitor, shared_register, handles, max_wait) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 std::vector<std::pair<bool, std::filesystem::path>> Storage::GetStaticFiles()
@@ -362,6 +364,9 @@ std::string Storage::PopulateLayoutWithRTree(storage::BaseDataLayout &layout)
     // Here, we hardcode the special file_index_path block name.
     // The important bit here is that the "offset" is set to zero
     layout.SetBlock("/common/rtree/file_index_path", make_block<char>(rtree_filename.length() + 1));
+    if (m_embed_leaf_indexes)
+        layout.SetBlock("/common/rtree/leaf_data",
+                        make_block<char>(std::filesystem::file_size(absolute_file_index_path)));
 
     return rtree_filename;
 }
@@ -385,6 +390,9 @@ std::string Storage::PopulateLayoutWithOpenAreaRTree(storage::BaseDataLayout &la
     auto filename = std::filesystem::absolute(config.GetPath(".osrm.openareas.fileIndex")).string();
     layout.SetBlock("/common/open_areas/rtree/file_index_path",
                     make_block<char>(filename.length() + 1));
+    if (m_embed_leaf_indexes)
+        layout.SetBlock("/common/open_areas/rtree/leaf_data",
+                        make_block<char>(std::filesystem::file_size(filename)));
     return filename;
 }
 
@@ -407,6 +415,19 @@ void Storage::PopulateLayout(storage::BaseDataLayout &layout,
 
 void Storage::PopulateStaticData(const SharedDataIndex &index)
 {
+    if (m_embed_leaf_indexes)
+    {
+        for (const auto &[extension, block] :
+             {std::pair{".osrm.fileIndex", "/common/rtree/leaf_data"},
+              std::pair{".osrm.openareas.fileIndex", "/common/open_areas/rtree/leaf_data"}})
+        {
+            if (index.hasBlock(block))
+            {
+                io::FileReader reader(config.GetPath(extension), io::FileReader::HasNoFingerprint);
+                reader.ReadInto(index.GetBlockPtr<char>(block), index.GetBlockSize(block));
+            }
+        }
+    }
     // read actual data into shared memory object //
 
     // store the filename of the on-disk portion of the RTree

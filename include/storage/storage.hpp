@@ -44,7 +44,7 @@ void populateLayoutFromFile(const std::filesystem::path &path, storage::BaseData
 class Storage
 {
   public:
-    Storage(StorageConfig config);
+    Storage(StorageConfig config, bool embed_leaf_indexes = false);
 
     int Run(int max_wait, const std::string &name, bool only_metric);
     void PopulateStaticData(const SharedDataIndex &index);
@@ -58,6 +58,7 @@ class Storage
 
   private:
     StorageConfig config;
+    bool m_embed_leaf_indexes;
 };
 } // namespace osrm::storage
 

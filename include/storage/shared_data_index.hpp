@@ -80,6 +80,8 @@ class SharedDataIndex
         return region.layout->GetBlockSize(name);
     }
 
+    bool hasBlock(const std::string &name) const { return block_to_region.contains(name); }
+
   private:
     const AllocatedRegion &GetBlockRegion(const std::string &name) const
     {

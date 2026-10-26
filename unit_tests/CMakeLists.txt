@@ -92,6 +92,9 @@ add_executable(storage-tests EXCLUDE_FROM_ALL
 
 add_executable(deployment-tests EXCLUDE_FROM_ALL ${DeploymentTestsSources})
 add_dependencies(deployment-tests osrm-prepare)
+add_executable(shared-memory-cleanup EXCLUDE_FROM_ALL helpers/shared_memory_cleanup.cpp)
+target_link_libraries(shared-memory-cleanup osrm_store)
+add_dependencies(deployment-tests shared-memory-cleanup)
 
 add_executable(library-tests EXCLUDE_FROM_ALL
 	${LibraryTestsSources})

@@ -200,7 +200,7 @@ add_library(osrm_partition src/osrm/partitioner.cpp $<TARGET_OBJECTS:PARTITIONER
 add_library(osrm_customize src/osrm/customizer.cpp $<TARGET_OBJECTS:CUSTOMIZER> $<TARGET_OBJECTS:UTIL>)
 add_library(osrm_update $<TARGET_OBJECTS:UPDATER> $<TARGET_OBJECTS:UTIL>)
 add_library(osrm_store $<TARGET_OBJECTS:STORAGE> $<TARGET_OBJECTS:UTIL>)
-add_library(osrm_deployment STATIC src/deployment/config.cpp src/deployment/descriptor.cpp src/deployment/output_directory.cpp)
+add_library(osrm_deployment STATIC src/deployment/config.cpp src/deployment/descriptor.cpp src/deployment/output_directory.cpp src/deployment/store.cpp)
 target_link_libraries(osrm_deployment PUBLIC osrm_store)
 add_library(osrm_preparation STATIC src/deployment/prepare.cpp)
 target_link_libraries(osrm_preparation PUBLIC osrm_deployment osrm_extract osrm_partition osrm_contract osrm_customize)
@@ -488,7 +488,7 @@ add_definitions(${OSRM_DEFINES})
 include_directories(SYSTEM ${DEPENDENCIES_INCLUDE_DIRS})
 
 # Binaries
-target_link_libraries(osrm-datastore osrm_store ${Boost_PROGRAM_OPTIONS_LIBRARY} LibArchive::LibArchive)
+target_link_libraries(osrm-datastore osrm_store osrm_deployment ${Boost_PROGRAM_OPTIONS_LIBRARY} LibArchive::LibArchive)
 target_link_libraries(osrm-extract osrm_extract ${Boost_PROGRAM_OPTIONS_LIBRARY})
 target_link_libraries(osrm-prepare osrm_preparation ${Boost_PROGRAM_OPTIONS_LIBRARY})
 target_link_libraries(osrm-partition osrm_partition ${Boost_PROGRAM_OPTIONS_LIBRARY})

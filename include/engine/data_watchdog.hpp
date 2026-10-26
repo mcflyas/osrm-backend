@@ -119,12 +119,13 @@ class DataWatchdogImpl<AlgorithmT, datafacade::ContiguousInternalMemoryDataFacad
                                                          updatable_region.proj_id}));
             }
 
-            util::Log() << "updated facade to regions " << (int)static_region.proj_id << " and "
-                        << (int)updatable_region.proj_id << " with timestamps "
-                        << static_region.timestamp << " and " << updatable_region.timestamp;
+            util::Log() << "Dataset " << dataset_name << ": updated facade to regions "
+                        << (int)static_region.proj_id << " and " << (int)updatable_region.proj_id
+                        << " with timestamps " << static_region.timestamp << " and "
+                        << updatable_region.timestamp;
         }
 
-        util::Log() << "DataWatchdog thread stopped";
+        util::Log() << "Dataset " << dataset_name << ": DataWatchdog thread stopped";
     }
 
     mutable std::shared_mutex factory_mutex;

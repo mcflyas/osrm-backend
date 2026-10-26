@@ -191,6 +191,15 @@ inline auto make_search_tree_view(const SharedDataIndex &index, const std::strin
 
     const auto coordinates = make_coordinates_view(index, "/common/nbn_data/coordinates");
 
+    if (index.hasBlock(name + "/leaf_data"))
+    {
+        const util::vector_view<const RTreeLeaf> leaves{
+            index.GetBlockPtr<RTreeLeaf>(name + "/leaf_data"),
+            index.GetBlockSize(name + "/leaf_data") / sizeof(RTreeLeaf)};
+        return util::StaticRTree<RTreeLeaf, storage::Ownership::View>{
+            search_tree, rtree_level_starts, leaves, coordinates};
+    }
+
     const char *path = index.template GetBlockPtr<char>(name + "/file_index_path");
 
     if (!std::filesystem::exists(std::filesystem::path{path}))
@@ -234,6 +243,15 @@ inline auto make_open_area_tree_view(const SharedDataIndex &index, const std::st
         make_vector_view<std::uint64_t>(index, name + "/search_tree_level_starts");
 
     const auto coordinates = make_coordinates_view(index, "/common/open_areas/bbox_corners");
+
+    if (index.hasBlock(name + "/leaf_data"))
+    {
+        const util::vector_view<const RTreeLeaf> leaves{
+            index.GetBlockPtr<RTreeLeaf>(name + "/leaf_data"),
+            index.GetBlockSize(name + "/leaf_data") / sizeof(RTreeLeaf)};
+        return util::StaticRTree<RTreeLeaf, storage::Ownership::View>{
+            search_tree, rtree_level_starts, leaves, coordinates};
+    }
 
     const char *path = index.template GetBlockPtr<char>(name + "/file_index_path");
 

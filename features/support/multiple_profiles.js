@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
 import { After } from '@cucumber/cucumber';
 import { mkBinPath } from './run.js';
 
@@ -22,6 +23,7 @@ export class DeploymentFixture {
       ]
     };
     this.processes = [];
+    this.namespace = `osrm-test-${randomUUID()}`;
   }
 
   writeConfig() {
@@ -75,6 +77,10 @@ export class DeploymentFixture {
         child.kill('SIGTERM');
         await closed;
       }
+    }
+    if (this.sharedMemory) {
+      const cleanup = this.run('unit_tests/shared-memory-cleanup', [this.namespace]);
+      if (cleanup.status !== 0) throw new Error(`Dataset cleanup failed: ${cleanup.stderr}`);
     }
     fs.rmSync(this.directory, { recursive: true, force: true });
   }
