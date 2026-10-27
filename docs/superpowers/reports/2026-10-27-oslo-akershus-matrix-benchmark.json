@@ -1,0 +1,2855 @@
+{
+  "completed": true,
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "binary_version": "v26.10.0",
+  "started_at": "2026-10-27T01:04:00Z",
+  "total_workers": 2,
+  "storage": "mmap",
+  "profiles": [
+    {
+      "name": "car",
+      "algorithm": "CH"
+    },
+    {
+      "name": "foot",
+      "algorithm": "CH"
+    }
+  ],
+  "samples_per_size": 5,
+  "workload": {
+    "version": 1,
+    "synthetic": true,
+    "seed": 20261027,
+    "coordinate_order": "longitude,latitude",
+    "max_snap_distance_metres": 150,
+    "minimum_spacing_metres": 10,
+    "source": {
+      "base_url": "http://127.0.0.1:5010",
+      "profile": "driving",
+      "description": "Local ferd-osrm-1; OSRM v26.8.0; CH; /data/norway-latest.osrm; image sha256:6c55eedded86b43b4e92102823eb453d9ae796d530cf73dc838238223483205b"
+    },
+    "sampling": "uniform candidates per box; nearest-road snap; minimum spacing; seeded shuffle",
+    "regions": [
+      {
+        "name": "oslo",
+        "count": 1176,
+        "bbox": [
+          10.62,
+          59.85,
+          10.94,
+          60.02
+        ],
+        "attempts": 2134,
+        "disconnected_rejections": 0
+      },
+      {
+        "name": "west_asker_baerum",
+        "count": 672,
+        "bbox": [
+          10.36,
+          59.78,
+          10.62,
+          59.97
+        ],
+        "attempts": 1375,
+        "disconnected_rejections": 0
+      },
+      {
+        "name": "northeast_lillestrom_lorenskog",
+        "count": 672,
+        "bbox": [
+          10.94,
+          59.88,
+          11.2,
+          60.04
+        ],
+        "attempts": 1293,
+        "disconnected_rejections": 0
+      },
+      {
+        "name": "south_follo",
+        "count": 504,
+        "bbox": [
+          10.73,
+          59.62,
+          10.99,
+          59.84
+        ],
+        "attempts": 996,
+        "disconnected_rejections": 0
+      },
+      {
+        "name": "north_jessheim_eidsvoll",
+        "count": 336,
+        "bbox": [
+          11.0,
+          60.05,
+          11.27,
+          60.35
+        ],
+        "attempts": 674,
+        "disconnected_rejections": 0
+      }
+    ],
+    "reachability_hub": [
+      10.75261,
+      59.913953
+    ],
+    "reachable_to_and_from_hub": true,
+    "cases": [
+      {
+        "file": "table-500.json",
+        "locations": 500,
+        "cells_per_annotation": 250000,
+        "sha256": "032aac95245231f361fd811e8556132f0c23a7da3413d57d9b1e8fb7ef546ea1",
+        "region_counts": {
+          "north_jessheim_eidsvoll": 45,
+          "northeast_lillestrom_lorenskog": 93,
+          "oslo": 171,
+          "south_follo": 86,
+          "west_asker_baerum": 105
+        },
+        "validation": {
+          "status": "passed",
+          "null_cells": 0,
+          "response_bytes": 3593524,
+          "request_and_json_decode_seconds": 0.225
+        }
+      },
+      {
+        "file": "table-1000.json",
+        "locations": 1000,
+        "cells_per_annotation": 1000000,
+        "sha256": "17688fd2605062dab09f8a142be91b449a49dda3a254cdea6389201a987d8d1a",
+        "region_counts": {
+          "north_jessheim_eidsvoll": 91,
+          "northeast_lillestrom_lorenskog": 205,
+          "oslo": 346,
+          "south_follo": 157,
+          "west_asker_baerum": 201
+        },
+        "validation": {
+          "status": "passed",
+          "null_cells": 0,
+          "response_bytes": 14374005,
+          "request_and_json_decode_seconds": 1.968
+        }
+      },
+      {
+        "file": "table-2000.json",
+        "locations": 2000,
+        "cells_per_annotation": 4000000,
+        "sha256": "653067187b745671696f2b1a4a66d83f4450a0b58bc678cb55981db9364aa9c0",
+        "region_counts": {
+          "north_jessheim_eidsvoll": 203,
+          "northeast_lillestrom_lorenskog": 401,
+          "oslo": 703,
+          "south_follo": 292,
+          "west_asker_baerum": 401
+        },
+        "validation": {
+          "status": "passed",
+          "null_cells": 0,
+          "response_bytes": 57548877,
+          "request_and_json_decode_seconds": 5.798
+        }
+      },
+      {
+        "file": "table-3360.json",
+        "locations": 3360,
+        "cells_per_annotation": 11289600,
+        "sha256": "d69fe3dc771989553b819ac4ca9f857cd2ec21e9bdc4db9b9acb8eb2bf911cb7",
+        "region_counts": {
+          "north_jessheim_eidsvoll": 336,
+          "northeast_lillestrom_lorenskog": 672,
+          "oslo": 1176,
+          "south_follo": 504,
+          "west_asker_baerum": 672
+        },
+        "validation": {
+          "status": "passed",
+          "null_cells": 0,
+          "response_bytes": 162441781,
+          "request_and_json_decode_seconds": 7.896
+        }
+      }
+    ]
+  },
+  "timing": "POST HTTP through complete response; streaming SHA-256; no client JSON decoding",
+  "load_samples": [
+    {
+      "label": "single_profile:500:0",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:500:1",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:500:2",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:500:3",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:500:4",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:1000:0",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:1000:1",
+      "load_average": [
+        4.00439453125,
+        9.3369140625,
+        9.91015625
+      ]
+    },
+    {
+      "label": "single_profile:1000:2",
+      "load_average": [
+        3.84375,
+        9.21484375,
+        9.86376953125
+      ]
+    },
+    {
+      "label": "single_profile:1000:3",
+      "load_average": [
+        3.84375,
+        9.21484375,
+        9.86376953125
+      ]
+    },
+    {
+      "label": "single_profile:1000:4",
+      "load_average": [
+        3.84375,
+        9.21484375,
+        9.86376953125
+      ]
+    },
+    {
+      "label": "single_profile:2000:0",
+      "load_average": [
+        3.85595703125,
+        9.1279296875,
+        9.8291015625
+      ]
+    },
+    {
+      "label": "single_profile:2000:1",
+      "load_average": [
+        3.85595703125,
+        9.1279296875,
+        9.8291015625
+      ]
+    },
+    {
+      "label": "single_profile:2000:2",
+      "load_average": [
+        3.787109375,
+        9.02587890625,
+        9.7890625
+      ]
+    },
+    {
+      "label": "single_profile:2000:3",
+      "load_average": [
+        3.787109375,
+        9.02587890625,
+        9.7890625
+      ]
+    },
+    {
+      "label": "single_profile:2000:4",
+      "load_average": [
+        3.787109375,
+        9.02587890625,
+        9.7890625
+      ]
+    },
+    {
+      "label": "single_profile:3360:0",
+      "load_average": [
+        3.81298828125,
+        8.85986328125,
+        9.720703125
+      ]
+    },
+    {
+      "label": "single_profile:3360:1",
+      "load_average": [
+        3.58740234375,
+        8.72900390625,
+        9.66943359375
+      ]
+    },
+    {
+      "label": "single_profile:3360:2",
+      "load_average": [
+        3.3798828125,
+        8.6005859375,
+        9.6181640625
+      ]
+    },
+    {
+      "label": "single_profile:3360:3",
+      "load_average": [
+        3.4140625,
+        8.4326171875,
+        9.54638671875
+      ]
+    },
+    {
+      "label": "single_profile:3360:4",
+      "load_average": [
+        3.380859375,
+        8.34228515625,
+        9.5078125
+      ]
+    },
+    {
+      "label": "alternating_profiles:500:0",
+      "load_average": [
+        3.18994140625,
+        8.22021484375,
+        9.45751953125
+      ]
+    },
+    {
+      "label": "alternating_profiles:500:1",
+      "load_average": [
+        3.73486328125,
+        8.24951171875,
+        9.46044921875
+      ]
+    },
+    {
+      "label": "alternating_profiles:500:2",
+      "load_average": [
+        3.73486328125,
+        8.24951171875,
+        9.46044921875
+      ]
+    },
+    {
+      "label": "alternating_profiles:500:3",
+      "load_average": [
+        3.73486328125,
+        8.24951171875,
+        9.46044921875
+      ]
+    },
+    {
+      "label": "alternating_profiles:500:4",
+      "load_average": [
+        3.73486328125,
+        8.24951171875,
+        9.46044921875
+      ]
+    },
+    {
+      "label": "alternating_profiles:1000:0",
+      "load_average": [
+        3.73486328125,
+        8.24951171875,
+        9.46044921875
+      ]
+    },
+    {
+      "label": "alternating_profiles:1000:1",
+      "load_average": [
+        3.515625,
+        8.12890625,
+        9.41064453125
+      ]
+    },
+    {
+      "label": "alternating_profiles:1000:2",
+      "load_average": [
+        3.515625,
+        8.12890625,
+        9.41064453125
+      ]
+    },
+    {
+      "label": "alternating_profiles:1000:3",
+      "load_average": [
+        3.515625,
+        8.12890625,
+        9.41064453125
+      ]
+    },
+    {
+      "label": "alternating_profiles:1000:4",
+      "load_average": [
+        3.515625,
+        8.12890625,
+        9.41064453125
+      ]
+    },
+    {
+      "label": "alternating_profiles:2000:0",
+      "load_average": [
+        3.31396484375,
+        8.01025390625,
+        9.361328125
+      ]
+    },
+    {
+      "label": "alternating_profiles:2000:1",
+      "load_average": [
+        3.12841796875,
+        7.8935546875,
+        9.31201171875
+      ]
+    },
+    {
+      "label": "alternating_profiles:2000:2",
+      "load_average": [
+        3.12841796875,
+        7.8935546875,
+        9.31201171875
+      ]
+    },
+    {
+      "label": "alternating_profiles:2000:3",
+      "load_average": [
+        2.95751953125,
+        7.77880859375,
+        9.26318359375
+      ]
+    },
+    {
+      "label": "alternating_profiles:2000:4",
+      "load_average": [
+        2.88037109375,
+        7.6826171875,
+        9.22021484375
+      ]
+    },
+    {
+      "label": "alternating_profiles:3360:0",
+      "load_average": [
+        2.8095703125,
+        7.587890625,
+        9.177734375
+      ]
+    },
+    {
+      "label": "alternating_profiles:3360:1",
+      "load_average": [
+        2.69140625,
+        7.40380859375,
+        9.09326171875
+      ]
+    },
+    {
+      "label": "alternating_profiles:3360:2",
+      "load_average": [
+        2.5556640625,
+        7.29736328125,
+        9.04541015625
+      ]
+    },
+    {
+      "label": "alternating_profiles:3360:3",
+      "load_average": [
+        2.6708984375,
+        7.2421875,
+        9.015625
+      ]
+    },
+    {
+      "label": "alternating_profiles:3360:4",
+      "load_average": [
+        2.53662109375,
+        7.13818359375,
+        8.96826171875
+      ]
+    },
+    {
+      "label": "concurrent_profiles:standalone:0",
+      "load_average": [
+        2.4169921875,
+        6.88623046875,
+        8.845703125
+      ]
+    },
+    {
+      "label": "concurrent_profiles:combined:0",
+      "load_average": [
+        2.46337890625,
+        6.8212890625,
+        8.81103515625
+      ]
+    },
+    {
+      "label": "concurrent_profiles:combined:1",
+      "load_average": [
+        2.58642578125,
+        6.7744140625,
+        8.78271484375
+      ]
+    },
+    {
+      "label": "concurrent_profiles:standalone:1",
+      "load_average": [
+        2.57568359375,
+        6.63330078125,
+        8.708984375
+      ]
+    },
+    {
+      "label": "concurrent_profiles:standalone:2",
+      "load_average": [
+        2.609375,
+        6.57275390625,
+        8.67529296875
+      ]
+    },
+    {
+      "label": "concurrent_profiles:combined:2",
+      "load_average": [
+        3.12109375,
+        6.61279296875,
+        8.6767578125
+      ]
+    }
+  ],
+  "phases": {
+    "single_profile": {
+      "results": {
+        "500": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.13668774999678135,
+              "min_seconds": 0.13598975003696978,
+              "max_seconds": 0.14119062502868474,
+              "sample_p95_seconds": 0.14119062502868474,
+              "median_first_byte_seconds": 0.13150054099969566
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.13598975003696978,
+                  "first_byte_seconds": 0.13150054099969566,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13668774999678135,
+                  "first_byte_seconds": 0.12845266703516245,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.14119062502868474,
+                  "first_byte_seconds": 0.13333029195200652,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13871308404486626,
+                  "first_byte_seconds": 0.13338849996216595,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13623745797667652,
+                  "first_byte_seconds": 0.12858799996320158,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.13953645795118064,
+              "min_seconds": 0.13318916608113796,
+              "max_seconds": 0.13971775001846254,
+              "sample_p95_seconds": 0.13971775001846254,
+              "median_first_byte_seconds": 0.13079566694796085
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.13971775001846254,
+                  "first_byte_seconds": 0.13116462505422533,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13955591700505465,
+                  "first_byte_seconds": 0.1285604169825092,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13607033295556903,
+                  "first_byte_seconds": 0.13079566694796085,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13318916608113796,
+                  "first_byte_seconds": 0.12780962500255555,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.13953645795118064,
+                  "first_byte_seconds": 0.13079595798626542,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": null
+              }
+            ]
+          }
+        },
+        "1000": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.37925216695293784,
+              "min_seconds": 0.37073024990968406,
+              "max_seconds": 0.3861971659353003,
+              "sample_p95_seconds": 0.3861971659353003,
+              "median_first_byte_seconds": 0.3568418329814449
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.3758613750105724,
+                  "first_byte_seconds": 0.35132287500891834,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.37925216695293784,
+                  "first_byte_seconds": 0.3568418329814449,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.38503187499009073,
+                  "first_byte_seconds": 0.36465741600841284,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.3861971659353003,
+                  "first_byte_seconds": 0.363607749924995,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.37073024990968406,
+                  "first_byte_seconds": 0.3457419580081478,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.37726283294614404,
+              "min_seconds": 0.36023979098536074,
+              "max_seconds": 0.38877729198429734,
+              "sample_p95_seconds": 0.38877729198429734,
+              "median_first_byte_seconds": 0.3495725829852745
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.36763950006570667,
+                  "first_byte_seconds": 0.34583845804445446,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.3773483330151066,
+                  "first_byte_seconds": 0.3495725829852745,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.38877729198429734,
+                  "first_byte_seconds": 0.3658583340002224,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.37726283294614404,
+                  "first_byte_seconds": 0.3502867919160053,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 0.36023979098536074,
+                  "first_byte_seconds": 0.3417778330622241,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": null
+              }
+            ]
+          }
+        },
+        "2000": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 1.1724618750158697,
+              "min_seconds": 1.1489648750284687,
+              "max_seconds": 1.2528143330710009,
+              "sample_p95_seconds": 1.2528143330710009,
+              "median_first_byte_seconds": 1.1050753749441355
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 1.2528143330710009,
+                  "first_byte_seconds": 1.1874155420809984,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.1724618750158697,
+                  "first_byte_seconds": 1.1050753749441355,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.1489648750284687,
+                  "first_byte_seconds": 1.0821729999734089,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.1594328749924898,
+                  "first_byte_seconds": 1.0932581250090152,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.228453459101729,
+                  "first_byte_seconds": 1.1596212500007823,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 1.161139167030342,
+              "min_seconds": 1.1291067079873756,
+              "max_seconds": 1.2434389169793576,
+              "sample_p95_seconds": 1.2434389169793576,
+              "median_first_byte_seconds": 1.0969421670306474
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 1.2434389169793576,
+                  "first_byte_seconds": 1.1766072500031441,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.1789043749449775,
+                  "first_byte_seconds": 1.1064220420084894,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.161139167030342,
+                  "first_byte_seconds": 1.0969421670306474,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.1291067079873756,
+                  "first_byte_seconds": 1.0609336660709232,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 1.13594645797275,
+                  "first_byte_seconds": 1.0702743750298396,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": null
+              }
+            ]
+          }
+        },
+        "3360": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 2.781241374905221,
+              "min_seconds": 2.7704856250202283,
+              "max_seconds": 2.8972653329838067,
+              "sample_p95_seconds": 2.8972653329838067,
+              "median_first_byte_seconds": 2.6087579580489546
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 2.8972653329838067,
+                  "first_byte_seconds": 2.7165144169703126,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.780977625050582,
+                  "first_byte_seconds": 2.6087579580489546,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.7704856250202283,
+                  "first_byte_seconds": 2.5979905840940773,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.78306766692549,
+                  "first_byte_seconds": 2.6072389170294628,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.781241374905221,
+                  "first_byte_seconds": 2.611423041904345,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 2.783365791081451,
+              "min_seconds": 2.7650560840265825,
+              "max_seconds": 2.7920851670205593,
+              "sample_p95_seconds": 2.7920851670205593,
+              "median_first_byte_seconds": 2.6145723330555484
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 2.783551499946043,
+                  "first_byte_seconds": 2.616496082977392,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.773205249919556,
+                  "first_byte_seconds": 2.595129165914841,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.7920851670205593,
+                  "first_byte_seconds": 2.6202225839952007,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.783365791081451,
+                  "first_byte_seconds": 2.6145723330555484,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              },
+              {
+                "primary": {
+                  "seconds": 2.7650560840265825,
+                  "first_byte_seconds": 2.5938335000537336,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": null
+              }
+            ]
+          }
+        }
+      },
+      "memory": {
+        "standalone": {
+          "peak_sampled_rss_kib": 3072544,
+          "last_sampled_rss_kib": 3072544,
+          "sample_count": 171
+        },
+        "combined": {
+          "peak_sampled_rss_kib": 2365792,
+          "last_sampled_rss_kib": 2365792,
+          "sample_count": 175
+        }
+      }
+    },
+    "alternating_profiles": {
+      "results": {
+        "500": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.13168375007808208,
+              "min_seconds": 0.13107495801523328,
+              "max_seconds": 0.13500270806252956,
+              "sample_p95_seconds": 0.13500270806252956,
+              "median_first_byte_seconds": 0.12441087502520531
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.13107495801523328,
+                  "first_byte_seconds": 0.1242440000642091,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.28914016601629555,
+                  "first_byte_seconds": 0.2782783330185339,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.13166020798962563,
+                  "first_byte_seconds": 0.12323079095222056,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.28352408402133733,
+                  "first_byte_seconds": 0.27742320904508233,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.13168375007808208,
+                  "first_byte_seconds": 0.12441087502520531,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.28859987494070083,
+                  "first_byte_seconds": 0.2786284579196945,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.133085084031336,
+                  "first_byte_seconds": 0.1245429590344429,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.29046829196158797,
+                  "first_byte_seconds": 0.28585391701199114,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.13500270806252956,
+                  "first_byte_seconds": 0.1264821250224486,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.29242325003724545,
+                  "first_byte_seconds": 0.2873373330803588,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.13156504195649177,
+              "min_seconds": 0.12951729202177376,
+              "max_seconds": 0.15463395800907165,
+              "sample_p95_seconds": 0.15463395800907165,
+              "median_first_byte_seconds": 0.12428495904896408
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.13156504195649177,
+                  "first_byte_seconds": 0.12697108392603695,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.28156520798802376,
+                  "first_byte_seconds": 0.27584024996031076,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.15463395800907165,
+                  "first_byte_seconds": 0.14637012500315905,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.2899297500262037,
+                  "first_byte_seconds": 0.2844884169753641,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.12951729202177376,
+                  "first_byte_seconds": 0.12330012500751764,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.3035704590147361,
+                  "first_byte_seconds": 0.29446595907211304,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.12956699996721,
+                  "first_byte_seconds": 0.12406654190272093,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.28485950001049787,
+                  "first_byte_seconds": 0.2771796660963446,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.13211566710378975,
+                  "first_byte_seconds": 0.12428495904896408,
+                  "response_bytes": 3593349,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "a7392549142fa89280f78c21789fe9d36800de2f3285c12f07cfa5d4525b781f"
+                },
+                "secondary": {
+                  "seconds": 0.2900019590742886,
+                  "first_byte_seconds": 0.2820112920599058,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          }
+        },
+        "1000": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.36506833392195404,
+              "min_seconds": 0.3606468749931082,
+              "max_seconds": 0.3691073750378564,
+              "sample_p95_seconds": 0.3691073750378564,
+              "median_first_byte_seconds": 0.3418514169752598
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.3691073750378564,
+                  "first_byte_seconds": 0.34547116700559855,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.27967708301730454,
+                  "first_byte_seconds": 0.27366175001952797,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.3606468749931082,
+                  "first_byte_seconds": 0.3397128329379484,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.2864814579952508,
+                  "first_byte_seconds": 0.27920900005847216,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.36855933407787234,
+                  "first_byte_seconds": 0.34291891707107425,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.2877423329045996,
+                  "first_byte_seconds": 0.27867599995806813,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.3615742080146447,
+                  "first_byte_seconds": 0.3387694580014795,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.2836104999296367,
+                  "first_byte_seconds": 0.2761690829647705,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.36506833392195404,
+                  "first_byte_seconds": 0.3418514169752598,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.28300399996805936,
+                  "first_byte_seconds": 0.27597516600508243,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 0.3643099170876667,
+              "min_seconds": 0.3621766670839861,
+              "max_seconds": 0.380206250003539,
+              "sample_p95_seconds": 0.380206250003539,
+              "median_first_byte_seconds": 0.3396183750592172
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 0.36565762502141297,
+                  "first_byte_seconds": 0.34246299997903407,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.282222667010501,
+                  "first_byte_seconds": 0.27377887500915676,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.380206250003539,
+                  "first_byte_seconds": 0.3625994169851765,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.2985229999758303,
+                  "first_byte_seconds": 0.28956750000361353,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.3621766670839861,
+                  "first_byte_seconds": 0.3391802089754492,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.29358866694383323,
+                  "first_byte_seconds": 0.28447549999691546,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.3643099170876667,
+                  "first_byte_seconds": 0.3396183750592172,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.3028516659978777,
+                  "first_byte_seconds": 0.2939314160030335,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 0.36330908292438835,
+                  "first_byte_seconds": 0.33925574994646013,
+                  "response_bytes": 14376071,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "8e7b5a29e92d3bf452b7e6707765ef18d4c600a4d06f65e6ea3de6f619e7ca56"
+                },
+                "secondary": {
+                  "seconds": 0.28377020894549787,
+                  "first_byte_seconds": 0.2792763339821249,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          }
+        },
+        "2000": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 1.118899374967441,
+              "min_seconds": 1.111853291047737,
+              "max_seconds": 1.1338866669684649,
+              "sample_p95_seconds": 1.1338866669684649,
+              "median_first_byte_seconds": 1.0540102500235662
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 1.1338866669684649,
+                  "first_byte_seconds": 1.0694364999653772,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.2830159580335021,
+                  "first_byte_seconds": 0.277598041924648,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.118899374967441,
+                  "first_byte_seconds": 1.0540102500235662,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.29108083399478346,
+                  "first_byte_seconds": 0.2820185839664191,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.11863862501923,
+                  "first_byte_seconds": 1.0505212909774855,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.2866690829396248,
+                  "first_byte_seconds": 0.2791523329215124,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.111853291047737,
+                  "first_byte_seconds": 1.043975125066936,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.28732020896859467,
+                  "first_byte_seconds": 0.27822366694454104,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.1306166659342125,
+                  "first_byte_seconds": 1.067409290932119,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.28320700000040233,
+                  "first_byte_seconds": 0.2725118329981342,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 1.1268640829948708,
+              "min_seconds": 1.117662375094369,
+              "max_seconds": 1.1522965419571847,
+              "sample_p95_seconds": 1.1522965419571847,
+              "median_first_byte_seconds": 1.0646394159412012
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 1.1522965419571847,
+                  "first_byte_seconds": 1.0847661249572411,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.2823310839012265,
+                  "first_byte_seconds": 0.2748835840029642,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.1281585829565302,
+                  "first_byte_seconds": 1.0646394159412012,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.28372712491545826,
+                  "first_byte_seconds": 0.27485824993345886,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.1227526670554653,
+                  "first_byte_seconds": 1.0545331250177696,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.28807962499558926,
+                  "first_byte_seconds": 0.28126579197123647,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.117662375094369,
+                  "first_byte_seconds": 1.0511489160126075,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.28205783397424966,
+                  "first_byte_seconds": 0.2750056249788031,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 1.1268640829948708,
+                  "first_byte_seconds": 1.0664314579917118,
+                  "response_bytes": 57558340,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "2b754f59fe916e928e7ccc98bc6ce9f63686ee3a4d003516beb4070eb6bf221e"
+                },
+                "secondary": {
+                  "seconds": 0.31127504201140255,
+                  "first_byte_seconds": 0.30674150004051626,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          }
+        },
+        "3360": {
+          "standalone": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 2.842147250077687,
+              "min_seconds": 2.7686883750138804,
+              "max_seconds": 2.9730640000198036,
+              "sample_p95_seconds": 2.9730640000198036,
+              "median_first_byte_seconds": 2.6674493750324473
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 2.871637500007637,
+                  "first_byte_seconds": 2.700455917045474,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.3046304170275107,
+                  "first_byte_seconds": 0.2942439579637721,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.9730640000198036,
+                  "first_byte_seconds": 2.8020060419803485,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.30047862499486655,
+                  "first_byte_seconds": 0.2876097079133615,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.842147250077687,
+                  "first_byte_seconds": 2.6674493750324473,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.30307816597633064,
+                  "first_byte_seconds": 0.2932068749796599,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.778222499997355,
+                  "first_byte_seconds": 2.598223292035982,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.2931492499774322,
+                  "first_byte_seconds": 0.281618291977793,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.7686883750138804,
+                  "first_byte_seconds": 2.5977086250204593,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.2881102910032496,
+                  "first_byte_seconds": 0.2789361249888316,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          },
+          "combined": {
+            "summary": {
+              "requests": 5,
+              "median_seconds": 2.8236661250703037,
+              "min_seconds": 2.757803792017512,
+              "max_seconds": 3.0740614160895348,
+              "sample_p95_seconds": 3.0740614160895348,
+              "median_first_byte_seconds": 2.6457671670941636
+            },
+            "samples": [
+              {
+                "primary": {
+                  "seconds": 2.8257043750490993,
+                  "first_byte_seconds": 2.654768917011097,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.28577791701536626,
+                  "first_byte_seconds": 0.2756250420352444,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 3.0740614160895348,
+                  "first_byte_seconds": 2.8938703750027344,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.2867472079815343,
+                  "first_byte_seconds": 0.2777479999931529,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.8236661250703037,
+                  "first_byte_seconds": 2.6457671670941636,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.31069795903749764,
+                  "first_byte_seconds": 0.29781500005628914,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.766810041037388,
+                  "first_byte_seconds": 2.5889845000347123,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.2888861249666661,
+                  "first_byte_seconds": 0.28307429200503975,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              },
+              {
+                "primary": {
+                  "seconds": 2.757803792017512,
+                  "first_byte_seconds": 2.5787197499303147,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                "secondary": {
+                  "seconds": 0.29046420799568295,
+                  "first_byte_seconds": 0.27890212507918477,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "memory": {
+        "standalone": {
+          "peak_sampled_rss_kib": 3314256,
+          "last_sampled_rss_kib": 3314256,
+          "sample_count": 169
+        },
+        "combined": {
+          "peak_sampled_rss_kib": 3347360,
+          "last_sampled_rss_kib": 3347360,
+          "sample_count": 213
+        }
+      }
+    },
+    "concurrent_profiles": {
+      "results": {
+        "standalone": {
+          "large_summary": {
+            "requests": 6,
+            "median_seconds": 2.8875139795127325,
+            "min_seconds": 2.8589692920213565,
+            "max_seconds": 2.9151380830444396,
+            "sample_p95_seconds": 2.9151380830444396,
+            "median_first_byte_seconds": 2.7077752290060744
+          },
+          "small_summary": {
+            "requests": 59,
+            "median_seconds": 0.304338707937859,
+            "min_seconds": 0.27747675008140504,
+            "max_seconds": 0.3197153329383582,
+            "sample_p95_seconds": 0.31712695804890245,
+            "median_first_byte_seconds": 0.2950636660680175
+          },
+          "small_requests_per_second": 3.2982403819586334,
+          "batches": [
+            {
+              "elapsed_seconds": 6.06107462500222,
+              "large": [
+                {
+                  "seconds": 2.87577137502376,
+                  "first_byte_seconds": 2.6948295830516145,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                {
+                  "seconds": 2.9151380830444396,
+                  "first_byte_seconds": 2.73371691594366,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                }
+              ],
+              "small": [
+                {
+                  "seconds": 0.29776166705414653,
+                  "first_byte_seconds": 0.2888939590193331,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30754087504465133,
+                  "first_byte_seconds": 0.2985514170723036,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30036333308089525,
+                  "first_byte_seconds": 0.2911099580815062,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30677533301059157,
+                  "first_byte_seconds": 0.29697683302219957,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29786258295644075,
+                  "first_byte_seconds": 0.28893366700503975,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2936108340509236,
+                  "first_byte_seconds": 0.2856530420249328,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2892260830849409,
+                  "first_byte_seconds": 0.28445645805913955,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31420720904134214,
+                  "first_byte_seconds": 0.30421595904044807,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3072545829927549,
+                  "first_byte_seconds": 0.3024601669749245,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3047066250583157,
+                  "first_byte_seconds": 0.29484854207839817,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3031850829720497,
+                  "first_byte_seconds": 0.293294082977809,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3105789159890264,
+                  "first_byte_seconds": 0.300721041043289,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30041974992491305,
+                  "first_byte_seconds": 0.29035104194190353,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3197153329383582,
+                  "first_byte_seconds": 0.3098392910324037,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3184847090160474,
+                  "first_byte_seconds": 0.30723512498661876,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3075769579736516,
+                  "first_byte_seconds": 0.2998829579446465,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3041848340071738,
+                  "first_byte_seconds": 0.294381916988641,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29077458288520575,
+                  "first_byte_seconds": 0.28087237488944083,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3087421669624746,
+                  "first_byte_seconds": 0.3028462090296671,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.27747675008140504,
+                  "first_byte_seconds": 0.27135375002399087,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              ]
+            },
+            {
+              "elapsed_seconds": 6.022874583024532,
+              "large": [
+                {
+                  "seconds": 2.8605273748980835,
+                  "first_byte_seconds": 2.6736203329637647,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                {
+                  "seconds": 2.909864541958086,
+                  "first_byte_seconds": 2.723376041976735,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                }
+              ],
+              "small": [
+                {
+                  "seconds": 0.29559558304026723,
+                  "first_byte_seconds": 0.28457433299627155,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2994554169708863,
+                  "first_byte_seconds": 0.2932625839021057,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3117731660604477,
+                  "first_byte_seconds": 0.302087250049226,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3011221660999581,
+                  "first_byte_seconds": 0.2907552079996094,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29139987495727837,
+                  "first_byte_seconds": 0.2849928749492392,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30881154199596494,
+                  "first_byte_seconds": 0.2991109589347616,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30451241589616984,
+                  "first_byte_seconds": 0.2987891249358654,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2967317500151694,
+                  "first_byte_seconds": 0.28676070796791464,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2988780830055475,
+                  "first_byte_seconds": 0.2939198330277577,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30476237495895475,
+                  "first_byte_seconds": 0.3003259999677539,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30437308305408806,
+                  "first_byte_seconds": 0.2957300830166787,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30145058303605765,
+                  "first_byte_seconds": 0.29140441701747477,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30557391699403524,
+                  "first_byte_seconds": 0.29581854201387614,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30431537504773587,
+                  "first_byte_seconds": 0.2980555830290541,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2952995829982683,
+                  "first_byte_seconds": 0.2852767079602927,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30111320805735886,
+                  "first_byte_seconds": 0.2911480830516666,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29805329197552055,
+                  "first_byte_seconds": 0.2882389579899609,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29955412494018674,
+                  "first_byte_seconds": 0.2917795419925824,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30632487509865314,
+                  "first_byte_seconds": 0.2983636250719428,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2932984579820186,
+                  "first_byte_seconds": 0.28379508294165134,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              ]
+            },
+            {
+              "elapsed_seconds": 5.8043770409421995,
+              "large": [
+                {
+                  "seconds": 2.899256584001705,
+                  "first_byte_seconds": 2.7207208749605343,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                {
+                  "seconds": 2.8589692920213565,
+                  "first_byte_seconds": 2.6830657919635996,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                }
+              ],
+              "small": [
+                {
+                  "seconds": 0.31139616610016674,
+                  "first_byte_seconds": 0.3056547080632299,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3063590839738026,
+                  "first_byte_seconds": 0.2963260000105947,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3100959580624476,
+                  "first_byte_seconds": 0.3002651249989867,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3119900419842452,
+                  "first_byte_seconds": 0.3076127090025693,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30642087501473725,
+                  "first_byte_seconds": 0.29655425006058067,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29997670894954354,
+                  "first_byte_seconds": 0.28995916701387614,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30009579099714756,
+                  "first_byte_seconds": 0.2903607910266146,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3070305420551449,
+                  "first_byte_seconds": 0.3020314590539783,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30514249997213483,
+                  "first_byte_seconds": 0.2991688339971006,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30505824997089803,
+                  "first_byte_seconds": 0.2939524999819696,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.304338707937859,
+                  "first_byte_seconds": 0.29550829192157835,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3087224579649046,
+                  "first_byte_seconds": 0.2998297919984907,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31261862500105053,
+                  "first_byte_seconds": 0.30286283302120864,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3017254170263186,
+                  "first_byte_seconds": 0.29085333400871605,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29522295796778053,
+                  "first_byte_seconds": 0.2877744999714196,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3031036250758916,
+                  "first_byte_seconds": 0.2950636660680175,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3050397919723764,
+                  "first_byte_seconds": 0.29714004194829613,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2923077919986099,
+                  "first_byte_seconds": 0.28579258301761,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31712695804890245,
+                  "first_byte_seconds": 0.3117306249914691,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              ]
+            }
+          ]
+        },
+        "combined": {
+          "large_summary": {
+            "requests": 6,
+            "median_seconds": 2.8797646454768255,
+            "min_seconds": 2.863819249905646,
+            "max_seconds": 2.9297387909609824,
+            "sample_p95_seconds": 2.9297387909609824,
+            "median_first_byte_seconds": 2.698019207920879
+          },
+          "small_summary": {
+            "requests": 58,
+            "median_seconds": 0.3025253750383854,
+            "min_seconds": 0.28196262498386204,
+            "max_seconds": 0.3201657079625875,
+            "sample_p95_seconds": 0.31626108393538743,
+            "median_first_byte_seconds": 0.2948885204968974
+          },
+          "small_requests_per_second": 3.2930767163782853,
+          "batches": [
+            {
+              "elapsed_seconds": 6.045641624950804,
+              "large": [
+                {
+                  "seconds": 2.9297387909609824,
+                  "first_byte_seconds": 2.7493315000319853,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                {
+                  "seconds": 2.87190579099115,
+                  "first_byte_seconds": 2.6931620829273015,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                }
+              ],
+              "small": [
+                {
+                  "seconds": 0.3103947499766946,
+                  "first_byte_seconds": 0.30161208391655236,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30853837507311255,
+                  "first_byte_seconds": 0.29910420801024884,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3027558330213651,
+                  "first_byte_seconds": 0.29279304202646017,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.306502667022869,
+                  "first_byte_seconds": 0.29654379200655967,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30522712506353855,
+                  "first_byte_seconds": 0.29508558299858123,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2997124999528751,
+                  "first_byte_seconds": 0.2898170829284936,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29561241704504937,
+                  "first_byte_seconds": 0.28544295905157924,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2982075830223039,
+                  "first_byte_seconds": 0.2882838749792427,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29356741707306355,
+                  "first_byte_seconds": 0.2884700830327347,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3034164169803262,
+                  "first_byte_seconds": 0.2980019999668002,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2988690419588238,
+                  "first_byte_seconds": 0.29034433292690665,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31059441703837365,
+                  "first_byte_seconds": 0.3058283750433475,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31626108393538743,
+                  "first_byte_seconds": 0.30628324998542666,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3042417080141604,
+                  "first_byte_seconds": 0.2945374579867348,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29176212509628385,
+                  "first_byte_seconds": 0.2818614999996498,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30882866703905165,
+                  "first_byte_seconds": 0.2989871670724824,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3003255419898778,
+                  "first_byte_seconds": 0.2905437919544056,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30046704201959074,
+                  "first_byte_seconds": 0.2902467920212075,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3079177909530699,
+                  "first_byte_seconds": 0.30122887494508177,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.28196262498386204,
+                  "first_byte_seconds": 0.27742808405309916,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              ]
+            },
+            {
+              "elapsed_seconds": 5.744724666932598,
+              "large": [
+                {
+                  "seconds": 2.872455499949865,
+                  "first_byte_seconds": 2.6929789999267086,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                {
+                  "seconds": 2.863819249905646,
+                  "first_byte_seconds": 2.684252333943732,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                }
+              ],
+              "small": [
+                {
+                  "seconds": 0.2957932079443708,
+                  "first_byte_seconds": 0.2855467499466613,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29942633293103427,
+                  "first_byte_seconds": 0.2928145829355344,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3015489160316065,
+                  "first_byte_seconds": 0.2938066250644624,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30850074999034405,
+                  "first_byte_seconds": 0.30173462501261383,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2855605420190841,
+                  "first_byte_seconds": 0.28065770806279033,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29737091599963605,
+                  "first_byte_seconds": 0.2900713749695569,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31599912501405925,
+                  "first_byte_seconds": 0.3062040830263868,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3097855830565095,
+                  "first_byte_seconds": 0.29979862505570054,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3055718330433592,
+                  "first_byte_seconds": 0.3000512080034241,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30971875006798655,
+                  "first_byte_seconds": 0.30314641701988876,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3022949170554057,
+                  "first_byte_seconds": 0.2978907080832869,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3072552919620648,
+                  "first_byte_seconds": 0.3016614170046523,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.298503625090234,
+                  "first_byte_seconds": 0.2901449170894921,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3132467910181731,
+                  "first_byte_seconds": 0.3046715409727767,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2997231250628829,
+                  "first_byte_seconds": 0.2921153750503436,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29397979204077274,
+                  "first_byte_seconds": 0.28370749996975064,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2982338749570772,
+                  "first_byte_seconds": 0.2883416248951107,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2995918339584023,
+                  "first_byte_seconds": 0.2898096669232473,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30221508408430964,
+                  "first_byte_seconds": 0.29836883407551795,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              ]
+            },
+            {
+              "elapsed_seconds": 5.822342125000432,
+              "large": [
+                {
+                  "seconds": 2.887073791003786,
+                  "first_byte_seconds": 2.7028763329144567,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                },
+                {
+                  "seconds": 2.9116014579776675,
+                  "first_byte_seconds": 2.7349253750871867,
+                  "response_bytes": 162465839,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "d51cc74992ffcd5906e476e041dd34505e7e250ee4bcce22cb24e0915231b2ce"
+                }
+              ],
+              "small": [
+                {
+                  "seconds": 0.3118439589161426,
+                  "first_byte_seconds": 0.2986228340305388,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31146954104769975,
+                  "first_byte_seconds": 0.3011005410226062,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30727850005496293,
+                  "first_byte_seconds": 0.29763429204467684,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3047073329798877,
+                  "first_byte_seconds": 0.29837650002446026,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3020295000169426,
+                  "first_byte_seconds": 0.2922347499988973,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3021645419066772,
+                  "first_byte_seconds": 0.291086999932304,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30041650007478893,
+                  "first_byte_seconds": 0.2908085830276832,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3124710830161348,
+                  "first_byte_seconds": 0.3029587499331683,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30052233301103115,
+                  "first_byte_seconds": 0.29469145799521357,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30030212504789233,
+                  "first_byte_seconds": 0.29345541703514755,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3096529170870781,
+                  "first_byte_seconds": 0.3020062920404598,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3201657079625875,
+                  "first_byte_seconds": 0.31255029095336795,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.30843029194511473,
+                  "first_byte_seconds": 0.3017579169245437,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29451966704800725,
+                  "first_byte_seconds": 0.28460050001740456,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.3166782499756664,
+                  "first_byte_seconds": 0.30782366695348173,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.2972737919772044,
+                  "first_byte_seconds": 0.29089708300307393,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.310896624927409,
+                  "first_byte_seconds": 0.30497179192025214,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.31316183297894895,
+                  "first_byte_seconds": 0.3033933750120923,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                },
+                {
+                  "seconds": 0.29788341699168086,
+                  "first_byte_seconds": 0.2939531250158325,
+                  "response_bytes": 3811831,
+                  "null_cells_both_annotations": 0,
+                  "sha256": "98a18b9b1e5622815ccbe2e3dcf1ad923e6689d9506d65d3aac32d557f993eea"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "memory": {
+        "standalone": {
+          "peak_sampled_rss_kib": 3378160,
+          "last_sampled_rss_kib": 3378160,
+          "sample_count": 103
+        },
+        "combined": {
+          "peak_sampled_rss_kib": 3392112,
+          "last_sampled_rss_kib": 3349600,
+          "sample_count": 132
+        }
+      }
+    }
+  },
+  "finished_at": "2026-10-27T01:06:48Z",
+  "provenance": {
+    "git_commit": "4fc79f6f9fe314124164f6c2939335b76d395754",
+    "input_timestamp": "2026-08-19T20:20:48Z",
+    "sha256": {
+      "build/benchmarks/oslo-akershus-2026-10-27/norway.osm.pbf": "0d9f327c4a005d45ad6c0cfadb5b67776b77af4abcea73b3207bc48adbb7758e",
+      "profiles/car.lua": "57778a757711e2ebef95d304e03e6ddf1a5693110d13a151914642344d59fa66",
+      "profiles/foot.lua": "74e231f81301d89a10e2bd0e67b787147c761b3ee06f665426e21a9b736372f4",
+      "build/osrm-routed": "22f329fc93ace9779fe17420cad380cefed180b98c7799827cdb378da1852bc4"
+    }
+  },
+  "environment": {
+    "cpu": "Apple M4 Max",
+    "logical_cpus": 14,
+    "memory_bytes": 38654705664,
+    "build_type": "Release",
+    "compiler": "Apple clang 17",
+    "assertions": true,
+    "lto": false,
+    "preparation_threads": 6
+  }
+}

@@ -86,9 +86,26 @@ curl --fail --silent --show-error \
 
 Change the file to select a smaller case and the URL profile to select another
 configured engine. Keep the same saved files, graph, annotations and total
-worker count when comparing standalone and combined deployments. The existing
-`benchmark_multiple_profiles.py` driver still benchmarks route requests; these
-files supply the inputs for a separate table comparison.
+worker count when comparing standalone and combined deployments.
+
+For a complete comparison, prepare a deployment with `car` first and `foot`
+second, then run the table driver. It starts its own servers on temporary local
+ports, checks response equality and records raw timings and sampled server RSS:
+
+```sh
+python3 scripts/benchmark_profile_tables.py --build build \
+  --config /path/to/deployment.json \
+  --workload example/multiple-profiles/oslo-akershus \
+  --output build/oslo-akershus-comparison.json \
+  --workers 2 --samples 5 --mixed-rounds 3
+```
+
+The output file must not already exist. The driver compares car-only traffic,
+alternating foot and car requests, and large car tables concurrent with smaller
+foot tables. Each deployment gets the same total worker count; the standalone
+processes split that count when both profiles are active. The first run's
+[results and reproduction details](../../../docs/superpowers/reports/2026-10-27-oslo-akershus-matrix-benchmark.md)
+cover freshly prepared Norway CH graphs.
 
 ## Regenerate
 
