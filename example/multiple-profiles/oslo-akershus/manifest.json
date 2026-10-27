@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "seed": 20261027,
+  "coordinate_order": "longitude,latitude",
+  "max_snap_distance_metres": 150,
+  "minimum_spacing_metres": 10,
+  "source": {
+    "base_url": "http://127.0.0.1:5010",
+    "profile": "driving",
+    "description": "Local ferd-osrm-1; OSRM v26.8.0; CH; /data/norway-latest.osrm; image sha256:6c55eedded86b43b4e92102823eb453d9ae796d530cf73dc838238223483205b"
+  },
+  "sampling": "uniform candidates per box; nearest-road snap; minimum spacing; seeded shuffle",
+  "regions": [
+    {
+      "name": "oslo",
+      "count": 1176,
+      "bbox": [
+        10.62,
+        59.85,
+        10.94,
+        60.02
+      ],
+      "attempts": 2134,
+      "disconnected_rejections": 0
+    },
+    {
+      "name": "west_asker_baerum",
+      "count": 672,
+      "bbox": [
+        10.36,
+        59.78,
+        10.62,
+        59.97
+      ],
+      "attempts": 1375,
+      "disconnected_rejections": 0
+    },
+    {
+      "name": "northeast_lillestrom_lorenskog",
+      "count": 672,
+      "bbox": [
+        10.94,
+        59.88,
+        11.2,
+        60.04
+      ],
+      "attempts": 1293,
+      "disconnected_rejections": 0
+    },
+    {
+      "name": "south_follo",
+      "count": 504,
+      "bbox": [
+        10.73,
+        59.62,
+        10.99,
+        59.84
+      ],
+      "attempts": 996,
+      "disconnected_rejections": 0
+    },
+    {
+      "name": "north_jessheim_eidsvoll",
+      "count": 336,
+      "bbox": [
+        11.0,
+        60.05,
+        11.27,
+        60.35
+      ],
+      "attempts": 674,
+      "disconnected_rejections": 0
+    }
+  ],
+  "reachability_hub": [
+    10.75261,
+    59.913953
+  ],
+  "reachable_to_and_from_hub": true,
+  "cases": [
+    {
+      "file": "table-500.json",
+      "locations": 500,
+      "cells_per_annotation": 250000,
+      "sha256": "032aac95245231f361fd811e8556132f0c23a7da3413d57d9b1e8fb7ef546ea1",
+      "region_counts": {
+        "north_jessheim_eidsvoll": 45,
+        "northeast_lillestrom_lorenskog": 93,
+        "oslo": 171,
+        "south_follo": 86,
+        "west_asker_baerum": 105
+      },
+      "validation": {
+        "status": "passed",
+        "null_cells": 0,
+        "response_bytes": 3593524,
+        "request_and_json_decode_seconds": 0.225
+      }
+    },
+    {
+      "file": "table-1000.json",
+      "locations": 1000,
+      "cells_per_annotation": 1000000,
+      "sha256": "17688fd2605062dab09f8a142be91b449a49dda3a254cdea6389201a987d8d1a",
+      "region_counts": {
+        "north_jessheim_eidsvoll": 91,
+        "northeast_lillestrom_lorenskog": 205,
+        "oslo": 346,
+        "south_follo": 157,
+        "west_asker_baerum": 201
+      },
+      "validation": {
+        "status": "passed",
+        "null_cells": 0,
+        "response_bytes": 14374005,
+        "request_and_json_decode_seconds": 1.968
+      }
+    },
+    {
+      "file": "table-2000.json",
+      "locations": 2000,
+      "cells_per_annotation": 4000000,
+      "sha256": "653067187b745671696f2b1a4a66d83f4450a0b58bc678cb55981db9364aa9c0",
+      "region_counts": {
+        "north_jessheim_eidsvoll": 203,
+        "northeast_lillestrom_lorenskog": 401,
+        "oslo": 703,
+        "south_follo": 292,
+        "west_asker_baerum": 401
+      },
+      "validation": {
+        "status": "passed",
+        "null_cells": 0,
+        "response_bytes": 57548877,
+        "request_and_json_decode_seconds": 5.798
+      }
+    },
+    {
+      "file": "table-3360.json",
+      "locations": 3360,
+      "cells_per_annotation": 11289600,
+      "sha256": "d69fe3dc771989553b819ac4ca9f857cd2ec21e9bdc4db9b9acb8eb2bf911cb7",
+      "region_counts": {
+        "north_jessheim_eidsvoll": 336,
+        "northeast_lillestrom_lorenskog": 672,
+        "oslo": 1176,
+        "south_follo": 504,
+        "west_asker_baerum": 672
+      },
+      "validation": {
+        "status": "passed",
+        "null_cells": 0,
+        "response_bytes": 162441781,
+        "request_and_json_decode_seconds": 7.896
+      }
+    }
+  ]
+}
