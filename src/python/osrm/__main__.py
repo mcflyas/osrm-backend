@@ -23,6 +23,7 @@ COMMANDS = {
     "datastore": "osrm-datastore",
     "extract": "osrm-extract",
     "partition": "osrm-partition",
+    "prepare": "osrm-prepare",
     "routed": "osrm-routed",
 }
 
@@ -44,7 +45,12 @@ def _find_executable(exe_name):
 
     # 2. Editable install: look in CMake build directories
     project_root = Path(__file__).parent.parent.parent.parent
-    for build_dir in sorted(project_root.glob("build/*/"), reverse=True):
+    build_directories = [
+        *sorted(project_root.glob("build/*/"), reverse=True),
+        project_root / "build",
+        *sorted(project_root.glob("build-*/"), reverse=True),
+    ]
+    for build_dir in build_directories:
         candidate = build_dir / exe_name
         if candidate.is_file():
             return candidate
@@ -68,5 +74,5 @@ env = None
 if IS_WIN and _LIBS_DIR.is_dir():
     env = {**os.environ, "PATH": str(_LIBS_DIR) + os.pathsep + os.environ.get("PATH", "")}
 
-proc = subprocess.run(cmd, env=env)
+proc = subprocess.run(cmd, env=env, check=False)
 sys.exit(proc.returncode)

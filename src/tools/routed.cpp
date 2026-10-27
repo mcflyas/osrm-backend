@@ -1,4 +1,7 @@
+#include "deployment/config.hpp"
+#include "deployment/descriptor.hpp"
 #include "server/header_size.hpp"
+#include "server/multi_profile_service_handler.hpp"
 #include "server/server.hpp"
 #include "util/exception_utils.hpp"
 #include "util/log.hpp"
@@ -29,6 +32,7 @@
 #include <new>
 #include <string>
 #include <thread>
+#include <type_traits>
 
 #ifdef _WIN32
 std::function<void()> console_ctrl_function;
@@ -102,17 +106,19 @@ void validate(boost::any &v, const std::vector<std::string> &values, double *, d
 } // namespace boost
 
 // generate boost::program_options object for the routing part
-inline unsigned generateServerProgramOptions(const int argc,
-                                             const char *argv[],
-                                             std::filesystem::path &base_path,
-                                             std::string &ip_address,
-                                             int &ip_port,
-                                             bool &trial,
-                                             EngineConfig &config,
-                                             int &requested_thread_num,
-                                             short &keepalive_timeout,
-                                             unsigned &max_header_size,
-                                             std::uint64_t &max_body_size)
+inline unsigned
+generateServerProgramOptions(const int argc,
+                             const char *argv[],
+                             std::filesystem::path &base_path,
+                             std::string &ip_address,
+                             int &ip_port,
+                             bool &trial,
+                             EngineConfig &config,
+                             int &requested_thread_num,
+                             short &keepalive_timeout,
+                             unsigned &max_header_size,
+                             std::uint64_t &max_body_size,
+                             std::optional<deployment::DeploymentConfig> &deployment_config)
 {
     using boost::program_options::value;
     using std::filesystem::path;
@@ -137,9 +143,10 @@ inline unsigned generateServerProgramOptions(const int argc,
     // declare a group of options that will be allowed on command line
     boost::program_options::options_description config_options("Configuration");
     config_options.add_options() //
-        ("ip,i",
-         value<std::string>(&ip_address)->default_value("0.0.0.0"),
-         "IP address") //
+        ("config", value<std::string>(), "Multi-profile deployment configuration")(
+            "ip,i",
+            value<std::string>(&ip_address)->default_value("0.0.0.0"),
+            "IP address") //
         ("port,p",
          value<int>(&ip_port)->default_value(5000),
          "TCP/IP port") //
@@ -260,6 +267,64 @@ inline unsigned generateServerProgramOptions(const int argc,
 
     boost::program_options::notify(option_variables);
 
+    if (option_variables.contains("config"))
+    {
+        for (const auto *name :
+             {"base", "algorithm", "dataset-name", "shared-memory", "mmap", "memory_file"})
+        {
+            if (option_variables.contains(name) && !option_variables[name].defaulted())
+            {
+                util::Log(logERROR) << "--config conflicts with --" << name;
+                return INIT_FAILED;
+            }
+        }
+        std::string error;
+        deployment_config =
+            deployment::readConfig(option_variables["config"].as<std::string>(), error);
+        if (!deployment_config)
+        {
+            util::Log(logERROR) << error;
+            return INIT_FAILED;
+        }
+        auto &settings = deployment_config->Server;
+        const auto overlay = [&](const char *name, auto &target)
+        {
+            if (option_variables.contains(name) && !option_variables[name].defaulted())
+                target = option_variables[name].as<std::decay_t<decltype(target)>>();
+        };
+        overlay("ip", settings.Ip);
+        overlay("port", settings.Port);
+        overlay("threads", settings.Threads);
+        overlay("keepalive-timeout", settings.KeepaliveTimeout);
+        overlay("max-header-size", settings.MaxHeaderSize);
+        overlay("max-request-body-size", settings.MaxBodySize);
+        auto &engine = settings.EngineDefaults;
+        overlay("verbosity", engine.verbosity);
+        overlay("disable-feature-dataset", engine.disable_feature_dataset);
+        overlay("max-viaroute-size", engine.max_locations_viaroute);
+        overlay("max-trip-size", engine.max_locations_trip);
+        overlay("max-table-size", engine.max_locations_distance_table);
+        overlay("max-matching-size", engine.max_locations_map_matching);
+        overlay("max-nearest-size", engine.max_results_nearest);
+        overlay("max-nearest-locations", engine.max_locations_nearest);
+        overlay("max-alternatives", engine.max_alternatives);
+        overlay("max-matching-radius", engine.max_radius_map_matching);
+        overlay("default-radius", engine.default_radius);
+        if (!deployment::validateConfig(
+                *deployment_config, deployment::ConfigPurpose::Serve, error))
+        {
+            util::Log(logERROR) << error;
+            return INIT_FAILED;
+        }
+        ip_address = settings.Ip;
+        ip_port = settings.Port;
+        requested_thread_num = settings.Threads;
+        keepalive_timeout = settings.KeepaliveTimeout;
+        max_header_size = settings.MaxHeaderSize;
+        max_body_size = settings.MaxBodySize;
+        config = engine;
+    }
+
     if (max_header_size == 0)
     {
         max_header_size = server::deriveMaxHeaderSize(config);
@@ -269,6 +334,9 @@ inline unsigned generateServerProgramOptions(const int argc,
     {
         max_body_size = server::deriveMaxBodySize(config);
     }
+
+    if (deployment_config)
+        return INIT_OK_START_ENGINE;
 
     if (!config.use_shared_memory && option_variables.contains("base"))
     {
@@ -300,6 +368,7 @@ try
     int ip_port;
 
     EngineConfig config;
+    std::optional<deployment::DeploymentConfig> deployment_config;
     std::filesystem::path base_path;
 
     int requested_thread_num = 1;
@@ -317,7 +386,8 @@ try
                                                               requested_thread_num,
                                                               keepalive_timeout,
                                                               max_header_size,
-                                                              max_body_size);
+                                                              max_body_size,
+                                                              deployment_config);
     if (init_result == INIT_OK_DO_NOT_START_ENGINE)
     {
         return EXIT_SUCCESS;
@@ -329,27 +399,43 @@ try
 
     util::LogPolicy::GetInstance().SetLevel(config.verbosity);
 
-    if (!base_path.empty())
+    if (deployment_config)
     {
-        config.storage_config = storage::StorageConfig(base_path, config.disable_feature_dataset);
-    }
-    if (!config.use_shared_memory && !config.storage_config.IsValid())
-    {
-        util::Log(logERROR) << "Required files are missing, cannot continue";
-        return EXIT_FAILURE;
-    }
-    if (!config.IsValid())
-    {
-        if (base_path.empty() != config.use_shared_memory)
+        std::string error;
+        if (deployment_config->Server.Storage != deployment::StorageMode::SharedMemory &&
+            !deployment::validatePreparedData(*deployment_config, error))
         {
-            util::Log(logWARNING) << "Path settings and shared memory conflicts.";
+            util::Log(logERROR) << error;
+            return EXIT_FAILURE;
         }
-        return EXIT_FAILURE;
+    }
+    else
+    {
+        if (!base_path.empty())
+        {
+            config.storage_config =
+                storage::StorageConfig(base_path, config.disable_feature_dataset);
+        }
+        if (!config.use_shared_memory && !config.storage_config.IsValid())
+        {
+            util::Log(logERROR) << "Required files are missing, cannot continue";
+            return EXIT_FAILURE;
+        }
+        if (!config.IsValid())
+        {
+            if (base_path.empty() != config.use_shared_memory)
+            {
+                util::Log(logWARNING) << "Path settings and shared memory conflicts.";
+            }
+            return EXIT_FAILURE;
+        }
     }
 
     util::Log() << "starting up engines, " << OSRM_VERSION;
 
-    if (config.use_shared_memory)
+    if (deployment_config
+            ? deployment_config->Server.Storage == deployment::StorageMode::SharedMemory
+            : config.use_shared_memory)
     {
         util::Log() << "Loading from shared memory";
     }
@@ -371,7 +457,37 @@ try
     pthread_sigmask(SIG_BLOCK, &wait_mask, nullptr); // only block necessary signals
 #endif
 
-    auto service_handler = std::make_unique<server::ServiceHandler>(config);
+    std::unique_ptr<server::ServiceHandlerInterface> service_handler;
+    if (deployment_config)
+    {
+        std::unordered_map<std::string, std::unique_ptr<server::ServiceHandlerInterface>> handlers;
+        for (const auto &profile : deployment_config->Profiles)
+        {
+            util::Log() << "Loading profile " << profile.Name << " ("
+                        << (profile.Algorithm == EngineConfig::Algorithm::CH ? "CH" : "MLD") << ")";
+            try
+            {
+                auto engine_config = deployment::makeEngineConfig(*deployment_config, profile);
+                handlers.emplace(profile.Name,
+                                 std::make_unique<server::ServiceHandler>(engine_config));
+            }
+            catch (const std::exception &exception)
+            {
+                util::Log(logERROR) << "Profile " << profile.Name << ": " << exception.what();
+                return EXIT_FAILURE;
+            }
+        }
+        service_handler = std::make_unique<server::MultiProfileServiceHandler>(std::move(handlers));
+        if (trial_run)
+        {
+            util::Log() << "trial run, quitting after successful initialization";
+            return EXIT_SUCCESS;
+        }
+    }
+    else
+    {
+        service_handler = std::make_unique<server::ServiceHandler>(config);
+    }
     auto routing_server = server::Server::CreateServer(ip_address,
                                                        ip_port,
                                                        requested_thread_num,

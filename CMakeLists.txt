@@ -188,6 +188,7 @@ set_property(TARGET SERVER PROPERTY INTERPROCEDURAL_OPTIMIZATION FALSE)
 
 add_executable(osrm-routed src/tools/routed.cpp $<TARGET_OBJECTS:SERVER> $<TARGET_OBJECTS:UTIL>)
 add_executable(osrm-extract src/tools/extract.cpp)
+add_executable(osrm-prepare src/tools/prepare.cpp)
 add_executable(osrm-partition src/tools/partition.cpp)
 add_executable(osrm-customize src/tools/customize.cpp)
 add_executable(osrm-contract src/tools/contract.cpp)
@@ -199,6 +200,10 @@ add_library(osrm_partition src/osrm/partitioner.cpp $<TARGET_OBJECTS:PARTITIONER
 add_library(osrm_customize src/osrm/customizer.cpp $<TARGET_OBJECTS:CUSTOMIZER> $<TARGET_OBJECTS:UTIL>)
 add_library(osrm_update $<TARGET_OBJECTS:UPDATER> $<TARGET_OBJECTS:UTIL>)
 add_library(osrm_store $<TARGET_OBJECTS:STORAGE> $<TARGET_OBJECTS:UTIL>)
+add_library(osrm_deployment STATIC src/deployment/config.cpp src/deployment/descriptor.cpp src/deployment/output_directory.cpp src/deployment/store.cpp)
+target_link_libraries(osrm_deployment PUBLIC osrm_store)
+add_library(osrm_preparation STATIC src/deployment/prepare.cpp)
+target_link_libraries(osrm_preparation PUBLIC osrm_deployment osrm_extract osrm_partition osrm_contract osrm_customize)
 
 # ALIAS targets with :: provide compile-time safety: typos error at configure time, not link time
 add_library(osrm::osrm ALIAS osrm)
@@ -303,6 +308,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
   add_dependency_defines(-DXML_STATIC)
   find_library(ws2_32_LIBRARY_PATH ws2_32)
   target_link_libraries(osrm-extract wsock32 ws2_32)
+  target_link_libraries(osrm-prepare wsock32 ws2_32)
 endif()
 
 if(UNIX AND NOT APPLE)
@@ -483,21 +489,22 @@ add_definitions(${OSRM_DEFINES})
 include_directories(SYSTEM ${DEPENDENCIES_INCLUDE_DIRS})
 
 # Binaries
-target_link_libraries(osrm-datastore osrm_store ${Boost_PROGRAM_OPTIONS_LIBRARY} LibArchive::LibArchive)
+target_link_libraries(osrm-datastore osrm_store osrm_deployment ${Boost_PROGRAM_OPTIONS_LIBRARY} LibArchive::LibArchive)
 target_link_libraries(osrm-extract osrm_extract ${Boost_PROGRAM_OPTIONS_LIBRARY})
+target_link_libraries(osrm-prepare osrm_preparation ${Boost_PROGRAM_OPTIONS_LIBRARY})
 target_link_libraries(osrm-partition osrm_partition ${Boost_PROGRAM_OPTIONS_LIBRARY})
 target_link_libraries(osrm-customize osrm_customize ${Boost_PROGRAM_OPTIONS_LIBRARY})
 target_link_libraries(osrm-contract osrm_contract ${Boost_PROGRAM_OPTIONS_LIBRARY})
-target_link_libraries(osrm-routed osrm ${Boost_PROGRAM_OPTIONS_LIBRARY} ${OPTIONAL_SOCKET_LIBS} ${ZLIB_LIBRARY})
+target_link_libraries(osrm-routed osrm osrm_deployment ${Boost_PROGRAM_OPTIONS_LIBRARY} ${OPTIONAL_SOCKET_LIBS} ${ZLIB_LIBRARY})
 
 # Lua C modules pulled in by a profile's require() are dlopen'ed at runtime and
 # resolve their lua_* symbols against the hosting executable. vcpkg links Lua
 # statically, which leaves those symbols out of the dynamic symbol table and
 # makes the load fail with "undefined symbol: lua_gettop". ENABLE_EXPORTS puts
-# them back (-rdynamic on ELF toolchains). Only these two binaries embed Lua.
+# them back (-rdynamic on ELF toolchains).
 # See https://github.com/Project-OSRM/osrm-backend/issues/7700
 if(NOT MSVC)
-  set_target_properties(osrm-extract osrm-contract PROPERTIES ENABLE_EXPORTS ON)
+  set_target_properties(osrm-extract osrm-contract osrm-prepare PROPERTIES ENABLE_EXPORTS ON)
 endif()
 
 set(EXTRACTOR_LIBRARIES
@@ -589,6 +596,7 @@ endif()
 # (i.e., from /usr/local/bin/) the linker can find library dependencies. For
 # more info see http://www.cmake.org/Wiki/CMake_RPATH_handling
 set_property(TARGET osrm-extract PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
+set_property(TARGET osrm-prepare PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 set_property(TARGET osrm-partition PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 set_property(TARGET osrm-contract PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 set_property(TARGET osrm-datastore PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
@@ -616,6 +624,7 @@ install(FILES ${ApiHeader} DESTINATION include/osrm/engine/api)
 # consumer's sysroot directly; we no longer ship them as part of libosrm.
 
 install(TARGETS osrm-extract DESTINATION bin)
+install(TARGETS osrm-prepare DESTINATION bin)
 install(TARGETS osrm-partition DESTINATION bin)
 install(TARGETS osrm-customize DESTINATION bin)
 install(TARGETS osrm-contract DESTINATION bin)

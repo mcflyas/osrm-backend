@@ -36,18 +36,58 @@ namespace
 {
 using Monitor = SharedMonitor<SharedRegionRegister>;
 
+class RegionReservation
+{
+  public:
+    explicit RegionReservation(SharedRegionRegister &shared_register)
+        : m_register(shared_register), m_key(shared_register.ReserveKey())
+    {
+    }
+
+    RegionReservation(const RegionReservation &) = delete;
+    RegionReservation &operator=(const RegionReservation &) = delete;
+
+    ~RegionReservation()
+    {
+        if (!m_published)
+        {
+            try
+            {
+                if (RegionExists(m_key))
+                    Remove(m_key);
+            }
+            catch (const std::exception &error)
+            {
+                util::Log(logWARNING)
+                    << "Could not remove unpublished region " << m_key << ": " << error.what();
+            }
+            m_register.ReleaseKey(m_key);
+        }
+    }
+
+    ProjID getKey() const { return m_key; }
+    void publish() { m_published = true; }
+
+  private:
+    SharedRegionRegister &m_register;
+    ProjID m_key;
+    bool m_published = false;
+};
+
 struct RegionHandle
 {
     std::unique_ptr<SharedMemory> memory;
     char *data_ptr;
     ProjID proj_id;
+    std::unique_ptr<RegionReservation> Reservation = nullptr;
 };
 
 RegionHandle setupRegion(SharedRegionRegister &shared_register,
                          const storage::BaseDataLayout &layout)
 {
     // This is safe because we have an exclusive lock for all osrm-datastore processes.
-    ProjID proj_id = shared_register.ReserveKey();
+    auto reservation = std::make_unique<RegionReservation>(shared_register);
+    const ProjID proj_id = reservation->getKey();
 
     // ensure that the shared memory region we want to write to is really removed
     // this is only needed for failure recovery because we actually wait for all clients
@@ -76,7 +116,7 @@ RegionHandle setupRegion(SharedRegionRegister &shared_register,
     auto data_ptr =
         std::copy_n(encoded_static_layout.data(), encoded_static_layout.size(), shared_memory_ptr);
 
-    return RegionHandle{std::move(memory), data_ptr, proj_id};
+    return RegionHandle{std::move(memory), data_ptr, proj_id, std::move(reservation)};
 }
 
 bool swapData(Monitor &monitor,
@@ -100,10 +140,6 @@ bool swapData(Monitor &monitor,
                     util::Log(logERROR) << "Could not acquire current region lock after "
                                         << max_wait << " seconds. Data update failed.";
 
-                    for (auto &pair : handles)
-                    {
-                        Remove(pair.second.proj_id);
-                    }
                     return false;
                 }
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -131,6 +167,8 @@ bool swapData(Monitor &monitor,
                 shared_region.proj_id = pair.second.proj_id;
                 shared_region.timestamp++;
             }
+            BOOST_ASSERT(pair.second.Reservation);
+            pair.second.Reservation->publish();
         }
     }
 
@@ -185,7 +223,10 @@ void populateLayoutFromFile(const std::filesystem::path &path, storage::BaseData
     }
 }
 
-Storage::Storage(StorageConfig config_) : config(std::move(config_)) {}
+Storage::Storage(StorageConfig config_, bool embed_leaf_indexes)
+    : config(std::move(config_)), m_embed_leaf_indexes(embed_leaf_indexes)
+{
+}
 
 int Storage::Run(int max_wait, const std::string &dataset_name, bool only_metric)
 {
@@ -283,9 +324,7 @@ int Storage::Run(int max_wait, const std::string &dataset_name, bool only_metric
     }
     PopulateUpdatableData(index);
 
-    swapData(monitor, shared_register, handles, max_wait);
-
-    return EXIT_SUCCESS;
+    return swapData(monitor, shared_register, handles, max_wait) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 std::vector<std::pair<bool, std::filesystem::path>> Storage::GetStaticFiles()
@@ -362,6 +401,9 @@ std::string Storage::PopulateLayoutWithRTree(storage::BaseDataLayout &layout)
     // Here, we hardcode the special file_index_path block name.
     // The important bit here is that the "offset" is set to zero
     layout.SetBlock("/common/rtree/file_index_path", make_block<char>(rtree_filename.length() + 1));
+    if (m_embed_leaf_indexes)
+        layout.SetBlock("/common/rtree/leaf_data",
+                        make_block<char>(std::filesystem::file_size(absolute_file_index_path)));
 
     return rtree_filename;
 }
@@ -385,6 +427,9 @@ std::string Storage::PopulateLayoutWithOpenAreaRTree(storage::BaseDataLayout &la
     auto filename = std::filesystem::absolute(config.GetPath(".osrm.openareas.fileIndex")).string();
     layout.SetBlock("/common/open_areas/rtree/file_index_path",
                     make_block<char>(filename.length() + 1));
+    if (m_embed_leaf_indexes)
+        layout.SetBlock("/common/open_areas/rtree/leaf_data",
+                        make_block<char>(std::filesystem::file_size(filename)));
     return filename;
 }
 
@@ -407,6 +452,19 @@ void Storage::PopulateLayout(storage::BaseDataLayout &layout,
 
 void Storage::PopulateStaticData(const SharedDataIndex &index)
 {
+    if (m_embed_leaf_indexes)
+    {
+        for (const auto &[extension, block] :
+             {std::pair{".osrm.fileIndex", "/common/rtree/leaf_data"},
+              std::pair{".osrm.openareas.fileIndex", "/common/open_areas/rtree/leaf_data"}})
+        {
+            if (index.hasBlock(block))
+            {
+                io::FileReader reader(config.GetPath(extension), io::FileReader::HasNoFingerprint);
+                reader.ReadInto(index.GetBlockPtr<char>(block), index.GetBlockSize(block));
+            }
+        }
+    }
     // read actual data into shared memory object //
 
     // store the filename of the on-disk portion of the RTree
@@ -606,6 +664,8 @@ void Storage::PopulateUpdatableData(const SharedDataIndex &index)
         std::uint32_t graph_connectivity_checksum = 0;
         contractor::files::readGraph(
             config.GetPath(".osrm.hsgr"), metrics, graph_connectivity_checksum);
+        *index.GetBlockPtr<std::uint32_t>("/ch/connectivity_checksum") =
+            graph_connectivity_checksum;
 
         if (config.IsRequiredConfiguredInput("osrm.edges"))
         {
@@ -637,6 +697,8 @@ void Storage::PopulateUpdatableData(const SharedDataIndex &index)
         std::uint32_t graph_connectivity_checksum = 0;
         customizer::files::readGraph(
             config.GetPath(".osrm.mldgr"), graph_view, graph_connectivity_checksum);
+        *index.GetBlockPtr<std::uint32_t>("/mld/connectivity_checksum") =
+            graph_connectivity_checksum;
 
         if (config.IsRequiredConfiguredInput("osrm.edges"))
         {

@@ -109,7 +109,12 @@ class Engine final : public EngineInterface
 
   private:
     template <typename ParametersT> auto GetAlgorithms(const ParametersT &params) const
-    { return RoutingAlgorithms<Algorithm>{heaps, facade_provider->Get(params)}; }
+    {
+        auto facade = facade_provider->Get(params);
+        if (facade)
+            heaps.selectDataset(facade);
+        return RoutingAlgorithms<Algorithm>{heaps, std::move(facade)};
+    }
     std::unique_ptr<DataFacadeProvider<Algorithm>> facade_provider;
     mutable SearchEngineData<Algorithm> heaps;
 

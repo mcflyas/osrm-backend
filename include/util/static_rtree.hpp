@@ -476,6 +476,16 @@ class StaticRTree
         m_objects = mmapFile<EdgeDataT>(on_disk_file_name, m_objects_region);
     }
 
+    explicit StaticRTree(Vector<TreeNode> search_tree,
+                         Vector<std::uint64_t> tree_level_starts,
+                         util::vector_view<const EdgeDataT> objects,
+                         const Vector<Coordinate> &coordinate_list)
+        requires(Ownership == storage::Ownership::View)
+        : m_search_tree(std::move(search_tree)),
+          m_coordinate_list(coordinate_list.data(), coordinate_list.size()),
+          m_tree_level_starts(std::move(tree_level_starts)), m_objects(objects)
+    { BOOST_ASSERT(m_tree_level_starts.size() >= 2); }
+
     /* Returns all features inside the bounding box.
        Rectangle needs to be projected!*/
     std::vector<EdgeDataT> SearchInBox(const Rectangle &search_rectangle) const

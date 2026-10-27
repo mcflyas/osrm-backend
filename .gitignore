@@ -49,6 +49,9 @@ Thumbs.db
 /test/data/monaco.osrm*
 /test/data/ch
 /test/data/mld
+/test/data/multiple_profiles/
+/test/data/multiple-profiles-example/
+/test/data/.multiple-profiles-example.prepare.lock
 /cmake/postinst
 .gradle/
 CMakeUserPresets.json 

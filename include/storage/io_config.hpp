@@ -81,10 +81,10 @@ struct IOConfig
             {".osm.bz2", ".osm.pbf", ".osm.xml", ".pbf", ".osm", ".osrm"}};
         for (const auto &ext : known_extensions)
         {
-            const auto pos = path.find(ext);
-            if (pos != std::string::npos)
+            if (path.size() >= ext.size() &&
+                path.compare(path.size() - ext.size(), ext.size(), ext) == 0)
             {
-                path.replace(pos, ext.size(), "");
+                path.resize(path.size() - ext.size());
                 break;
             }
         }

@@ -1,3 +1,5 @@
+#include "deployment/store.hpp"
+#include "deployment/config.hpp"
 #include "storage/serialization.hpp"
 #include "storage/shared_memory.hpp"
 #include "storage/shared_monitor.hpp"
@@ -104,7 +106,8 @@ bool generateDataStoreOptions(const int argc,
                               bool &list_datasets,
                               bool &list_blocks,
                               bool &only_metric,
-                              std::vector<storage::FeatureDataset> &disable_feature_dataset)
+                              std::vector<storage::FeatureDataset> &disable_feature_dataset,
+                              std::optional<deployment::DeploymentConfig> &deployment_config)
 {
     // declare a group of options that will be allowed only on command line
     boost::program_options::options_description generic_options("Options");
@@ -122,10 +125,12 @@ bool generateDataStoreOptions(const int argc,
     // as well as in a config file
     boost::program_options::options_description config_options("Configuration");
     config_options.add_options() //
-        ("max-wait",
-         boost::program_options::value<int>(&max_wait)->default_value(-1),
-         "Maximum number of seconds to wait on a running data update "
-         "before aquiring the lock by force.") //
+        ("config",
+         boost::program_options::value<std::string>(),
+         "Multi-profile deployment configuration")(
+            "max-wait",
+            boost::program_options::value<int>(&max_wait)->default_value(-1),
+            "Maximum seconds to acquire the publication lock; fail on timeout (-1: unlimited).") //
         ("dataset-name",
          boost::program_options::value<std::string>(&dataset_name)->default_value(""),
          "Name of the dataset to load into memory. This allows having multiple datasets in memory "
@@ -216,6 +221,38 @@ bool generateDataStoreOptions(const int argc,
         return false;
     }
 
+    if (option_variables.contains("config"))
+    {
+        for (const auto *name : {"base",
+                                 "dataset-name",
+                                 "only-metric",
+                                 "list",
+                                 "list-blocks",
+                                 "remove-locks",
+                                 "spring-clean"})
+        {
+            if (option_variables.contains(name) && !option_variables[name].defaulted())
+                throw util::exception(std::string("--config conflicts with --") + name);
+        }
+        boost::program_options::notify(option_variables);
+        std::string error;
+        deployment_config =
+            deployment::readConfig(option_variables["config"].as<std::string>(), error);
+        if (!deployment_config)
+            throw util::exception(error);
+        auto &defaults = deployment_config->Server.EngineDefaults;
+        if (option_variables.contains("verbosity") && !option_variables["verbosity"].defaulted())
+            defaults.verbosity = verbosity;
+        else
+            verbosity = defaults.verbosity;
+        if (option_variables.contains("disable-feature-dataset"))
+            defaults.disable_feature_dataset = disable_feature_dataset;
+        if (!deployment::validateConfig(
+                *deployment_config, deployment::ConfigPurpose::Store, error))
+            throw util::exception(error);
+        return true;
+    }
+
     if (option_variables.contains("remove-locks"))
     {
         removeLocks();
@@ -257,6 +294,7 @@ try
     bool list_datasets = false;
     bool list_blocks = false;
     bool only_metric = false;
+    std::optional<deployment::DeploymentConfig> deployment_config;
     std::vector<storage::FeatureDataset> disable_feature_dataset;
     if (!generateDataStoreOptions(argc,
                                   argv,
@@ -267,12 +305,22 @@ try
                                   list_datasets,
                                   list_blocks,
                                   only_metric,
-                                  disable_feature_dataset))
+                                  disable_feature_dataset,
+                                  deployment_config))
     {
         return EXIT_SUCCESS;
     }
 
     util::LogPolicy::GetInstance().SetLevel(verbosity);
+
+    if (deployment_config)
+    {
+        std::string error;
+        const auto status = deployment::publishProfiles(*deployment_config, max_wait, error);
+        if (status != 0)
+            util::Log(logERROR) << error;
+        return status;
+    }
 
     if (list_datasets || list_blocks)
     {

@@ -17,6 +17,26 @@ thread_local SearchEngineData<CH>::SearchEngineHeapPtr
     SearchEngineData<CH>::map_matching_reverse_heap_1;
 
 thread_local SearchEngineData<CH>::ManyToManyHeapPtr SearchEngineData<CH>::many_to_many_heap;
+thread_local std::weak_ptr<const void> SearchEngineData<CH>::m_dataset_owner;
+
+void SearchEngineData<CH>::selectDataset(const std::shared_ptr<const void> &dataset)
+{
+    BOOST_ASSERT(dataset);
+    if (!m_dataset_owner.expired() && !m_dataset_owner.owner_before(dataset) &&
+        !dataset.owner_before(m_dataset_owner))
+        return;
+
+    forward_heap_1.reset();
+    reverse_heap_1.reset();
+    forward_heap_2.reset();
+    reverse_heap_2.reset();
+    forward_heap_3.reset();
+    reverse_heap_3.reset();
+    many_to_many_heap.reset();
+    map_matching_forward_heap_1.reset();
+    map_matching_reverse_heap_1.reset();
+    m_dataset_owner = dataset;
+}
 
 void SearchEngineData<CH>::InitializeOrClearMapMatchingThreadLocalStorage(unsigned number_of_nodes)
 {
@@ -126,6 +146,25 @@ thread_local SearchEngineData<MLD>::ManyToManyHeapPtr SearchEngineData<MLD>::man
 thread_local SearchEngineData<MLD>::UnpackingCachePtr SearchEngineData<MLD>::unpacking_cache;
 thread_local unsigned SearchEngineData<MLD>::unpacking_cache_node_count = 0;
 thread_local unsigned SearchEngineData<MLD>::unpacking_cache_edge_count = 0;
+thread_local std::weak_ptr<const void> SearchEngineData<MLD>::m_dataset_owner;
+
+void SearchEngineData<MLD>::selectDataset(const std::shared_ptr<const void> &dataset)
+{
+    BOOST_ASSERT(dataset);
+    if (!m_dataset_owner.expired() && !m_dataset_owner.owner_before(dataset) &&
+        !dataset.owner_before(m_dataset_owner))
+        return;
+
+    forward_heap_1.reset();
+    reverse_heap_1.reset();
+    map_matching_forward_heap_1.reset();
+    map_matching_reverse_heap_1.reset();
+    many_to_many_heap.reset();
+    unpacking_cache.reset();
+    unpacking_cache_node_count = 0;
+    unpacking_cache_edge_count = 0;
+    m_dataset_owner = dataset;
+}
 
 void SearchEngineData<MLD>::InitializeOrClearMapMatchingThreadLocalStorage(
     unsigned number_of_nodes, unsigned number_of_boundary_nodes)

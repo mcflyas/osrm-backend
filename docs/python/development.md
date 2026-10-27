@@ -348,3 +348,21 @@ After the run finishes, check:
 On a tag checkout (e.g. `v26.4.0`), the Python version resolves cleanly to
 `26.4.0`, matching the `package.json` version that `release-monthly.yml`
 committed when creating the tag.
+
+## Multi-profile command packaging
+
+Wheels include `osrm-prepare` under `osrm/bin/`, alongside extract, partition,
+customize, contract, datastore and routed. The command dispatcher forwards
+`python -m osrm prepare --config osrm.json` to that executable without changing
+argument boundaries or exit status. `python -m osrm prepare --help` checks the
+installed entry point. Lua and input paths in JSON remain relative to the JSON
+file; wheels provide Lua profiles under `osrm/share/profiles/`.
+
+The root CMake install, Node binary bundle and container also include the native
+executable. `osrm_preparation` links the extraction, partitioning, contraction and
+customization libraries separately from the server. Lua module symbol exports
+match the existing Lua-hosting tools. The routing binding API is unchanged.
+
+Run `pytest test/python/test_main.py` for dispatcher checks. Build the `tests`
+target before running multi-profile Cucumber scenarios; it includes a helper that
+removes only the scenario's shared-memory namespace.

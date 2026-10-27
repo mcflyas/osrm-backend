@@ -147,6 +147,7 @@ class OSRMWorld extends World {
     const table = {
       'osm_file'          : this.osmCacheFile,
       'processed_file'    : this.osrmCacheFile,
+      'test_dataset'      : this.deployment ? `${this.deployment.namespace}/legacy` : '',
       'profile_file'      : this.profileFile,
       'rastersource_file' : this.rasterCacheFile,
       'speeds_file'       : this.speedsCacheFile,
@@ -159,7 +160,7 @@ class OSRMWorld extends World {
     }
 
     options = options.replaceAll(/\{(\w+)\}/g, replacer);
-    return options.split(/\s+/);
+    return options.trim() ? options.trim().split(/\s+/) : [];
   }
 }
 

@@ -14,7 +14,17 @@ PROFILE:=$(PROFILE_ROOT)/car.lua
 
 all: data
 
-data: ch/$(DATA_NAME).osrm.hsgr mld/$(DATA_NAME).osrm.partition
+data: ch/$(DATA_NAME).osrm.hsgr mld/$(DATA_NAME).osrm.partition multiple_profiles/ready
+
+multiple_profiles/ready: Makefile multiple_profiles.osm multiple_profiles_speeds.csv $(PROFILE_ROOT)/testbot.lua $(OSRM_EXTRACT) $(OSRM_PARTITION) $(OSRM_CUSTOMIZE)
+	mkdir -p multiple_profiles/source multiple_profiles/a multiple_profiles/b
+	$(OSRM_EXTRACT) multiple_profiles.osm -p $(PROFILE_ROOT)/testbot.lua --output multiple_profiles/source/map --threads 2 --small-component-size 0
+	$(OSRM_PARTITION) multiple_profiles/source/map.osrm --max-cell-sizes 4,16,64 --small-component-size 0 --threads 2
+	cp multiple_profiles/source/map.osrm.* multiple_profiles/a/
+	cp multiple_profiles/source/map.osrm.* multiple_profiles/b/
+	$(OSRM_CUSTOMIZE) multiple_profiles/a/map.osrm --threads 2
+	$(OSRM_CUSTOMIZE) multiple_profiles/b/map.osrm --segment-speed-file multiple_profiles_speeds.csv --threads 2
+	touch $@
 
 clean:
 	-rm -r $(DATA_NAME).osrm.*

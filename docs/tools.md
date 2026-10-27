@@ -1,12 +1,14 @@
 # Command-Line Tools
 
-OSRM ships six command-line tools that cover the full data pipeline, from raw
+OSRM ships command-line tools that cover the full data pipeline, from raw
 OSM data to a running routing server. All tools share a set of common options
 described below, followed by per-tool reference sections.
 
 ## Common Options
 
-These flags are accepted by every tool.
+Most pipeline tools accept the following flags. `osrm-prepare` accepts help,
+version, verbosity and threads; it uses configuration instead of `--list-inputs`.
+`osrm-datastore` does not take `--threads`.
 
 | Flag | Short | Description |
 |------|-------|-------------|
@@ -40,6 +42,21 @@ done
 ```
 
 ---
+
+## osrm-prepare
+
+Prepares every profile in one [deployment configuration](routed.md#multiple-profiles)
+sequentially, using the existing extraction and CH/MLD preparation libraries.
+
+```sh
+osrm-prepare --config osrm.json [--threads 8] [--verbosity INFO]
+```
+
+`--config` is required except with help/version. Explicit threads and verbosity
+override JSON. Threads must be positive. The output directory must be absent or
+empty. A failure returns nonzero and leaves no `prepared.json`; a successful
+release can be served using `osrm-routed --config osrm.json`. Advanced per-stage
+options remain available through the individual tools below.
 
 ## osrm-extract
 
@@ -127,6 +144,7 @@ The HTTP server. Loads a prepared dataset and serves the OSRM HTTP API.
 
 ```
 osrm-routed <base.osrm> [options]
+osrm-routed --config <deployment.json> [server-wide options]
 ```
 
 ### Server
@@ -172,12 +190,13 @@ without restarting the server.
 
 ```
 osrm-datastore [options] <base.osrm>
+osrm-datastore --config <deployment.json> [--max-wait <seconds>]
 ```
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--dataset-name <name>` | | | Name for this dataset in shared memory. Allows multiple datasets to coexist. |
-| `--max-wait <s>` | `-1` (unlimited) | Seconds to wait for a running update to finish before forcibly acquiring the lock. |
+| `--max-wait <s>` | | `-1` (unlimited) | Seconds to acquire the publication lock; a timeout returns failure. |
 | `--only-metric` | | | Reload only the metric (weights/durations) without replacing the full dataset. Optimized for frequent traffic updates. |
 | `--disable-feature-dataset <name>` | | | Skip loading an optional dataset. Options: `ROUTE_STEPS`, `ROUTE_GEOMETRY`. |
 | `--remove-locks` | `-r` | | Remove stale shared-memory locks and exit. |

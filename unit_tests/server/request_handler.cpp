@@ -1,6 +1,7 @@
 #include "server/request_handler.hpp"
 
 #include "server/api/parsed_url.hpp"
+#include "server/multi_profile_service_handler.hpp"
 #include "server/service_handler.hpp"
 
 #include "util/json_container.hpp"
@@ -97,6 +98,32 @@ BOOST_AUTO_TEST_CASE(without_a_service_handler_every_request_is_an_internal_erro
     // Even the error response has to carry the CORS headers, or browsers cannot read it.
     BOOST_CHECK_EQUAL(reply["Access-Control-Allow-Origin"], "*");
     BOOST_CHECK(bodyOf(reply).find("InternalError") != std::string::npos);
+}
+
+BOOST_AUTO_TEST_CASE(unknown_profile_is_http_400_and_preflight_still_bypasses_dispatch)
+{
+    RequestHandler handler;
+    auto child = std::make_unique<StubServiceHandler>();
+    auto *record = child.get();
+    std::unordered_map<std::string, std::unique_ptr<ServiceHandlerInterface>> registry;
+    registry.emplace("car", std::move(child));
+    handler.RegisterServiceHandler(
+        std::make_unique<MultiProfileServiceHandler>(std::move(registry)));
+    for (const auto method : {bhttp::verb::get, bhttp::verb::head, bhttp::verb::post})
+    {
+        const auto target =
+            method == bhttp::verb::post ? "/route/v1/missing" : "/route/v1/missing/1,2;3,4";
+        const auto reply = handle(handler, makeRequest(method, target, "application/json", "{}"));
+        BOOST_CHECK(reply.result() == bhttp::status::bad_request);
+        BOOST_CHECK(bodyOf(reply).find("InvalidProfile") != std::string::npos);
+    }
+    BOOST_CHECK_EQUAL(record->QueryCount(), 0);
+    const auto head = handle(handler, makeRequest(bhttp::verb::head, "/route/v1/car/1,2;3,4"));
+    BOOST_CHECK(head.result() == bhttp::status::ok);
+    BOOST_CHECK_EQUAL(record->QueryCount(), 1);
+    const auto preflight = handle(handler, makeRequest(bhttp::verb::options, "/route/v1/missing"));
+    BOOST_CHECK(preflight.result() == bhttp::status::no_content);
+    BOOST_CHECK_EQUAL(record->QueryCount(), 1);
 }
 
 BOOST_AUTO_TEST_CASE(cors_preflight_is_answered_without_a_body)
